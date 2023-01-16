@@ -5,7 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 const app = express()
-const PORT = 3000;
+const PORT = 3003;
 
 app.use(express.static('./static'))
 app.use(express.urlencoded({
@@ -32,6 +32,7 @@ let context: ContextInterface = {
     directories: [],
     files: []
 }
+
 let allFiles: string[]
 let folderPath: string
 
