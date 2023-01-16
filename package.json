@@ -1,0 +1,13 @@
+{
+    "name": "repo",
+    "version": "1.0.0",
+    "main": "./build/server.js",
+    "repository": "https://github.com/",
+    "author": "jdworzycki",
+    "license": "MIT",
+    "scripts": {
+        "build": "npx tsc",
+        "start": "node build/server.js",
+        "dev": "concurrently \"npx tsc --watch\" \"nodemon -q build/server.js\""
+    }
+}
