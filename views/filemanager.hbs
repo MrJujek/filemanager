@@ -1,0 +1,55 @@
+<div class="leftPanel">
+    Filemanager
+    <div class="buttonNewFolder" onclick="createNewFolder()">
+        Create new folder
+    </div>
+    <div class="createNewFile" onclick="createNewFile()">
+        Create new file
+    </div>
+    <div class="uploadFiles">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <img src="/icons/direct-download.png">
+            <label for="filestoupload">Wybierz pliki</label>
+            <input type="file" multiple required accept="*" name="filestoupload" id="filestoupload">
+            <input type="submit">
+        </form>
+    </div>
+</div>
+<div class="rightPanel">
+    <span class="filePath">{{ filePath }}</span><br>
+    {{#if directories}}
+    <span class="rowInfo">Folders:</span>
+    {{/if}}
+    <div class="row">
+        {{#each directories}}
+        <div class="element">
+            <div class="imgX">
+                <img src="/icons/{{obraz}}" alt="{{name}}">
+                <form method="POST" action="/deleteFolder?name={{name}}">
+                    <button type="submit"><img src="/icons/close.png" alt="X"></button>
+                </form>
+            </div>
+            <a class="fileLink" href="{{path}}">{{name}}</a>
+        </div>
+        {{/each}}
+    </div>
+    {{#if files}}
+    <span class="rowInfo">Files:</span>
+    {{/if}}
+    <div class="row">
+        {{#each files}}
+        <div class="element">
+            <div class="imgX">
+                <img src="/icons/{{obraz}}" alt="{{name}}">
+                <form method="POST" action="/deleteFile?name={{name}}">
+                    <button type="submit"><img src="/icons/close.png" alt="X"></button>
+                </form>
+            </div>
+            <form method="POST" action="/show{{path}}">
+                <button class="fileLink" type="submit">{{name}}</button>
+            </form>
+            {{!-- <a class="fileLink" href="/show{{path}}">{{name}}</a> --}}
+        </div>
+        {{/each}}
+    </div>
+</div>

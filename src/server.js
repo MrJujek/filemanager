@@ -1,44 +1,31 @@
-import express from "express";
-import formidable from "formidable";
-import { engine } from "express-handlebars";
-import * as fs from "fs";
-import * as path from "path";
-
+const express = require("express")
 const app = express()
 const PORT = 3000;
+const path = require("path")
+const formidable = require('formidable');
+const os = require("os")
+const fs = require("fs")
+const fsPromises = require('fs/promises')
+var hbs = require('express-handlebars');
 
-app.use(express.static('./static'))
+app.use(express.static('static'))
+
 app.use(express.urlencoded({
     extended: true
 }));
 
-app.engine('hbs', engine({ defaultLayout: 'main.hbs' }));
-app.set('view engine', 'hbs');
-app.set('views', "./views");
-
-interface ContextInterface {
-    filePath: string
-    directories: FileToPushInterface[]
-    files: FileToPushInterface[]
-}
-interface FileToPushInterface {
-    name: string
-    obraz: string
-    path: string
-}
-
-let context: ContextInterface = {
-    filePath: "",
+let context = {
+    filePath: [],
     directories: [],
     files: []
 }
-let allFiles: string[]
-let folderPath: string
+let allFiles
+let folderPath
 
 app.get("/*", async function (req, res) {
     folderPath = req.url
     console.log(context);
-    fs.readdir(`./files/${folderPath}`, (err, files) => {
+    fs.readdir(path.join(__dirname, "files", folderPath), (err, files) => {
         if (err) throw err
         allFiles = files
 
@@ -52,13 +39,8 @@ app.get("/*", async function (req, res) {
         }
 
         files.forEach((file) => {
-            fs.lstat(`./files${folderPath}/${file}`, (err, stats) => {
-                let fileToPush: FileToPushInterface = {
-                    name: file,
-                    obraz: "unknown.png",
-                    path: ""
-                }
-
+            fs.lstat(path.join(__dirname, "files", folderPath, file), (err, stats) => {
+                let fileToPush = { name: file, obraz: "unknown.png" }
                 if (stats.isDirectory()) {
                     fileToPush.obraz = "folder.png"
                     fileToPush.path = path.join(folderPath, file)
@@ -78,18 +60,17 @@ app.get("/*", async function (req, res) {
 })
 
 app.post("/upload", function (req, res) {
-    let form = formidable({
-        uploadDir: path.join('./files', folderPath),
-        keepExtensions: true,
-        multiples: true
-    });
+    let form = formidable({});
+    form.uploadDir = path.join(__dirname, 'files', folderPath)
+    form.keepExtensions = true
+    form.multiples = true
 
     form.on('fileBegin', function (name, file) {
-        let fileName = file.originalFilename
+        let fileName = file.name
         for (let i = 0; i < allFiles.length; i++) {
-            if (allFiles[i] == file.originalFilename) {
+            if (allFiles[i] == file.name) {
                 let time = new Date().getTime();
-                let splitted = fileName!.split(".")
+                let splitted = fileName.split(".")
                 if (splitted.length >= 2) {
                     fileName = splitted[0] + time + "." + splitted[1]
                 } else {
@@ -98,8 +79,8 @@ app.post("/upload", function (req, res) {
                 break;
             }
         }
-        file.filepath = path.join('./files', folderPath, fileName!)
-        console.log(file.filepath);
+        file.path = form.uploadDir + '/' + fileName
+        console.log(file.path);
     })
 
     form.parse(req, function (err, fields, files) {
@@ -115,7 +96,7 @@ app.post('/newFile', function (req, res) {
         name = "NewFile" + time
     }
 
-    let splitted = name.toString().split(".")
+    let splitted = name.split(".")
     let fileName = name
     if (!(splitted.length >= 2)) {
         fileName += ".txt"
@@ -129,7 +110,7 @@ app.post('/newFile', function (req, res) {
         }
     }
 
-    const filepath = path.join("./files", folderPath, fileName.toString())
+    const filepath = path.join(__dirname, "files", folderPath, fileName)
     fs.writeFile(filepath, "", (err) => {
         if (err) throw err
 
@@ -144,7 +125,7 @@ app.post('/newFolder', function (req, res) {
         name = "NewFolder" + time
     }
 
-    let filepath = path.join("./files", folderPath, name.toString())
+    let filepath = path.join(__dirname, "files", folderPath, name)
     console.log(filepath);
     if (!fs.existsSync(filepath)) {
         fs.mkdir(filepath, (err) => {
@@ -154,8 +135,8 @@ app.post('/newFolder', function (req, res) {
         })
     } else {
         let time = new Date().getTime();
-        name += time.toString()
-        filepath = path.join("./files", folderPath, name.toString())
+        name += time
+        filepath = path.join(__dirname, "files", folderPath, name)
         fs.mkdir(filepath, (err) => {
             if (err) throw err
 
@@ -167,7 +148,7 @@ app.post('/newFolder', function (req, res) {
 app.post('/deleteFile', function (req, res) {
     console.log(folderPath);
     let name = req.query.name
-    let filepath = path.join("./files", folderPath, name!.toString())
+    let filepath = path.join(__dirname, "files", folderPath, name)
 
     fs.unlink(filepath, (err) => {
         if (err) throw err
@@ -178,7 +159,7 @@ app.post('/deleteFile', function (req, res) {
 
 app.post('/deleteFolder', function (req, res) {
     let name = req.query.name
-    let filepath = path.join("./files", folderPath, name!.toString())
+    let filepath = path.join(__dirname, "files", folderPath, name)
     if (fs.existsSync(filepath)) {
         fs.rm(filepath, { recursive: true }, (err) => {
             if (err) throw err
@@ -190,10 +171,19 @@ app.post('/deleteFolder', function (req, res) {
 
 app.post('/show/*', function (req, res) {
     let url = req.url
-    res.sendFile(path.join("./files", url.slice(5)))
+    //console.log(path.join(__dirname, "files", url.slice(5)));
+    res.sendFile(path.join(__dirname, "files", url.slice(5)))
 });
 
-const fileIcons = [
+app.set('views', path.join(__dirname, 'views'));
+app.engine('hbs', hbs({ defaultLayout: 'main.hbs' }));
+app.set('view engine', 'hbs');
+
+app.listen(PORT, function () {
+    console.log("start serwera na porcie " + PORT)
+})
+
+let fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',
     'avi.png', 'bmp.png', 'cad.png',
     'cdr.png', 'close.png', 'css.png',
@@ -210,7 +200,7 @@ const fileIcons = [
     'unknown.png', 'wmv.png', 'xls.png',
     'xml.png', 'zip.png'
 ]
-function getIcon(file: string) {
+function getIcon(file) {
     let splitted = file.split(".")
     let obraz = "unknown.png"
 
@@ -223,7 +213,3 @@ function getIcon(file: string) {
     }
     return obraz
 }
-
-app.listen(PORT, function () {
-    console.log("start serwera na porcie " + PORT)
-})

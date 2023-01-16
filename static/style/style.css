@@ -1,0 +1,437 @@
+@import url(https://fonts.googleapis.com/css?family=Bungee:regular);
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.filetype {
+  height: 50px;
+  width: 50px;
+}
+
+.topPanel {
+  width: 100vw;
+  height: 80px;
+  background: #4222c3;
+  background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
+  background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.topPanel input[type="submit"] {
+  background: none;
+  border: none;
+  outline: none;
+  margin-left: 40px;
+  font-size: 32px;
+  text-decoration: none;
+  font-family: "Bungee", Arial;
+  color: aliceblue;
+  text-shadow: 2px 2px 2px #000000;
+  padding: 10px;
+}
+
+.topPanel input[type="submit"]:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.bottomPanel {
+  min-height: calc(100vh - 80px);
+  background-color: #aaaaaa;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.leftPanel {
+  height: auto;
+  background: #2271c3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: aliceblue;
+  font-size: 20px;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #000000;
+}
+
+.leftPanel span {
+  color: orange;
+  font-size: 18px;
+  font-family: "Bungee", Arial;
+  text-shadow: 2px 2px 2px #000000;
+  background-color: #acacac;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.leftPanel img {
+  height: 80px;
+  width: 80px;
+}
+
+.leftPanel input[type="file"],
+.leftPanel label:hover {
+  cursor: pointer;
+}
+
+.leftPanel input[type="file"] {
+  width: 215px;
+  height: 250px;
+  position: absolute;
+  opacity: 0;
+}
+
+.leftPanel form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.leftPanel form label {
+  width: 170px;
+}
+
+.leftPanel input[type="submit"] {
+  font-size: 20px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-shadow: 1px 1px 1px #ffffff;
+  z-index: 1;
+}
+
+.leftPanel input[type="submit"]:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.createNewFile,
+.buttonNewFolder {
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  font-size: 16px;
+  text-shadow: 1px 1px 1px #ffffff;
+  padding: 0px 5px;
+  margin: 5px;
+  width: 200px;
+}
+
+.createNewFile a,
+.buttonNewFolder a {
+  text-decoration: none;
+}
+
+.createNewFile a:visited,
+.buttonNewFolder a:visited {
+  color: blue;
+}
+
+.createNewFile:hover,
+.buttonNewFolder:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.createNewFile:hover a,
+.buttonNewFolder:hover a {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.delete {
+  text-align: center;
+  margin: 5px;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.delete:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+}
+
+.uploadFiles {
+  margin: 10px;
+  border: 3px dashed dimgray;
+  background-color: #999999;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 20px;
+}
+
+.uploadFiles label {
+  padding-bottom: 20px;
+  text-align: center;
+  overflow-wrap: break-word;
+}
+
+.rowInfo {
+  color: aliceblue;
+  font-size: 20px;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #000000;
+  margin-left: 20px;
+}
+
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.row .element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 90px;
+  min-width: 100px;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 10px;
+  margin: 5px;
+  position: relative;
+  padding: 0px 5px;
+}
+
+.row .element .imgX {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+}
+
+.row .element .imgX img {
+  height: 50px;
+  width: 50px;
+}
+
+.row .element .imgX button {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 20px;
+  width: 20px;
+  background: none;
+  border: none;
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.row .element .imgX button:hover {
+  background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
+  background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
+  border-radius: 5px;
+}
+
+.row .element .imgX button img {
+  height: 15px;
+  width: 15px;
+}
+
+#dialognewfolder,
+#dialognewfile {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 24px;
+  color: orange;
+  text-shadow: 1px 1px 1px black;
+  font-family: 'Bungee';
+  position: absolute;
+  top: 100px;
+  left: calc((100vw - 400px)/2);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: 400px;
+  border: 3px solid darkorange;
+  background-color: #999;
+  border-radius: 20px;
+  padding: 10px;
+  -webkit-box-shadow: 1px 1px 100px #999;
+          box-shadow: 1px 1px 100px #999;
+}
+
+#dialognewfolder input,
+#dialognewfile input {
+  font-family: 'Noto Sans';
+  border: 1px solid darkorange;
+  border-radius: 5px;
+  height: 40px;
+  width: 100%;
+  font-size: 28px;
+  padding: 5px;
+}
+
+#dialognewfolder .dialogButtons,
+#dialognewfile .dialogButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 5px;
+}
+
+#dialognewfolder .dialogButtons button[type="submit"],
+#dialognewfolder .dialogButtons div,
+#dialognewfile .dialogButtons button[type="submit"],
+#dialognewfile .dialogButtons div {
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+  width: 80px;
+}
+
+#dialognewfolder .dialogButtons button[type="submit"]:hover,
+#dialognewfolder .dialogButtons div:hover,
+#dialognewfile .dialogButtons button[type="submit"]:hover,
+#dialognewfile .dialogButtons div:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+#dialognewfolder .dialogButtons button[type="submit"]:hover a:visited,
+#dialognewfolder .dialogButtons div:hover a:visited,
+#dialognewfile .dialogButtons button[type="submit"]:hover a:visited,
+#dialognewfile .dialogButtons div:hover a:visited {
+  color: #ffffff;
+}
+
+.fileLink {
+  background: none;
+  border: none;
+  font-family: 'Noto Sans';
+  color: #ffffff;
+  text-shadow: 1px 1px 1px black;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 0px 5px;
+}
+
+.fileLink:hover {
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
+  background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
+  border-radius: 5px;
+}
+
+.filePath {
+  font-family: "Noto Sans";
+  font-size: 32px;
+  margin-top: 100px;
+  color: #ffffff;
+  text-shadow: 1px 1px 10px black;
+  padding: 0px 5px;
+}
+
+.filePath:hover {
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
+  background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
+  border-radius: 5px;
+}
+/*# sourceMappingURL=style.css.map */
