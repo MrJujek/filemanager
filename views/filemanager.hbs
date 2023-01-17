@@ -8,18 +8,32 @@
     </div>
     <div class="uploadFiles">
         <form action="/upload" method="post" enctype="multipart/form-data">
-            <img src="/icons/direct-download.png">
-            <label for="filestoupload">Wybierz pliki</label>
+            <img src="/icons/direct-download.png" alt="Select files">
+            <label for="filestoupload">Choose or drag files</label>
             <input type="file" multiple required accept="*" name="filestoupload" id="filestoupload">
-            <input type="submit">
+            <input type="submit" value="Upload">
         </form>
     </div>
 </div>
 <div class="rightPanel">
-    <span class="filePath">{{ filePath }}</span><br>
+    <div class="filePathDiv">
+        {{#each filePath}}
+
+        {{#if @first}}
+        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home"
+                class="homeIcon"><span>/</span></a>
+        {{else}}
+        <a class="filePath" href="/files{{path}}">{{ name }}</a>
+        {{/if}}
+
+        {{/each}}
+    </div>
+    <br>
+
     {{#if directories}}
-    <span class="rowInfo">Folders:</span>
+    <span class=" rowInfo">Folders:</span>
     {{/if}}
+
     <div class="row">
         {{#each directories}}
         <div class="element">
@@ -29,13 +43,15 @@
                     <button type="submit"><img src="/icons/close.png" alt="X"></button>
                 </form>
             </div>
-            <a class="fileLink" href="{{path}}">{{name}}</a>
+            <a class="fileLink" href="/files{{path}}">{{name}}</a>
         </div>
         {{/each}}
     </div>
+
     {{#if files}}
     <span class="rowInfo">Files:</span>
     {{/if}}
+
     <div class="row">
         {{#each files}}
         <div class="element">
@@ -48,8 +64,8 @@
             <form method="POST" action="/show{{path}}">
                 <button class="fileLink" type="submit">{{name}}</button>
             </form>
-            {{!-- <a class="fileLink" href="/show{{path}}">{{name}}</a> --}}
         </div>
         {{/each}}
     </div>
+
 </div>

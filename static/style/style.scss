@@ -57,6 +57,7 @@
     font-size: 20px;
     font-family: "Bungee", Arial;
     text-shadow: 1px 1px 1px #000000;
+    user-select: none;
 
     span {
         color: orange;
@@ -108,6 +109,7 @@
         padding-right: 10px;
         text-shadow: 1px 1px 1px #ffffff;
         z-index: 1;
+        width: 150px;
     }
 
     input[type="submit"]:hover {
@@ -323,7 +325,7 @@
     text-shadow: 1px 1px 1px black;
     text-decoration: none;
     font-size: 18px;
-    padding: 0px 5px;
+    padding: 1px 5px;
 
     &:hover {
         cursor: pointer;
@@ -332,17 +334,39 @@
     }
 }
 
-.filePath {
-    font-family: "Noto Sans";
-    font-size: 32px;
-    margin-top: 100px;
-    color: #ffffff;
-    text-shadow: 1px 1px 10px black;
-    padding: 0px 5px;
+.filePathDiv {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px 0px 0px 10px;
+
+    .filePath {
+        font-family: "Noto Sans";
+        font-size: 32px;
+        color: #ffffff;
+        text-shadow: 1px 1px 10px black;
+        text-decoration: none;
+        height: 43px;
+
+        &:hover {
+            ~.filePath {
+                background: none;
+            }
+        }
+    }
 
     &:hover {
-        cursor: pointer;
-        background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
-        border-radius: 5px;
+        .filePath {
+            background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
+            border-radius: 5px;
+            cursor: pointer;
+        }
     }
+}
+
+.homeIcon {
+    height: 30px;
+    width: auto;
+    margin: 8px 0px 0px 5px;
 }

@@ -3,21 +3,24 @@ import formidable from "formidable";
 import { engine } from "express-handlebars";
 import * as fs from "fs";
 import * as path from "path";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express()
-const PORT = 3003;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.static('./static'))
 app.use(express.urlencoded({
     extended: true
 }));
+app.use('/favicon.ico', express.static('./static/icons/folder.png'));
 
 app.engine('hbs', engine({ defaultLayout: 'main.hbs' }));
 app.set('view engine', 'hbs');
 app.set('views', "./views");
 
 interface ContextInterface {
-    filePath: string
+    filePath: PathLinks[]
     directories: FileToPushInterface[]
     files: FileToPushInterface[]
 }
@@ -26,9 +29,13 @@ interface FileToPushInterface {
     obraz: string
     path: string
 }
+interface PathLinks {
+    name: string
+    path: string
+}
 
 let context: ContextInterface = {
-    filePath: "",
+    filePath: [],
     directories: [],
     files: []
 }
@@ -36,23 +43,49 @@ let context: ContextInterface = {
 let allFiles: string[]
 let folderPath: string
 
-app.get("/*", async function (req, res) {
-    folderPath = req.url
-    console.log(context);
-    fs.readdir(`./files/${folderPath}`, (err, files) => {
-        if (err) throw err
+app.get("/", function (req, res) {
+    res.redirect("/files/")
+});
+
+app.get("/files/*", async function (req, res) {
+    folderPath = req.url.slice(6)
+    console.log("folderPath: ", folderPath);
+
+    fs.readdir(path.join("files", folderPath), (err, files) => {
+        if (err) console.log(err)
         allFiles = files
 
-        //console.log(allFiles);
-        //console.log(folderPath);
-
         context = {
-            filePath: folderPath,
+            filePath: [],
             directories: [],
             files: []
         }
 
+        //console.log(folderPath.split('/').length);
+
+        for (let i = 0; i < folderPath.split("/").length; i++) {
+            //console.log("iiiiii:", i);
+
+            let toPush = { name: "", path: "" }
+            toPush.name = folderPath.split("/")[i] + "/"
+
+            for (let j = 0; j <= i; j++) {
+                //console.log("j:", j);
+
+                toPush.path = path.join("/", toPush.path, folderPath.split("/")[j])
+            }
+            context.filePath.push(toPush)
+        }
+
+        if (context.filePath[0].path == context.filePath[1].path) {
+            context.filePath = [context.filePath[0]]
+        }
+
+        console.log("URL: ", req.url);
+
         files.forEach((file) => {
+            //console.log(file);
+
             fs.lstat(`./files${folderPath}/${file}`, (err, stats) => {
                 let fileToPush: FileToPushInterface = {
                     name: file,
@@ -74,6 +107,7 @@ app.get("/*", async function (req, res) {
             })
         })
 
+        //console.log(context);
         res.render('filemanager.hbs', context);
     })
 })
@@ -100,12 +134,12 @@ app.post("/upload", function (req, res) {
             }
         }
         file.filepath = path.join('./files', folderPath, fileName!)
-        console.log(file.filepath);
+        //console.log(file.filepath);
     })
 
     form.parse(req, function (err, fields, files) {
         if (err) throw err
-        res.redirect(folderPath)
+        res.redirect(path.join("files", folderPath))
     });
 })
 
@@ -134,7 +168,7 @@ app.post('/newFile', function (req, res) {
     fs.writeFile(filepath, "", (err) => {
         if (err) throw err
 
-        res.redirect(folderPath)
+        res.redirect(path.join("files", folderPath))
     })
 })
 
@@ -146,12 +180,12 @@ app.post('/newFolder', function (req, res) {
     }
 
     let filepath = path.join("./files", folderPath, name.toString())
-    console.log(filepath);
+    //console.log(filepath);
     if (!fs.existsSync(filepath)) {
         fs.mkdir(filepath, (err) => {
             if (err) throw err
 
-            res.redirect(folderPath)
+            res.redirect(path.join("files", folderPath))
         })
     } else {
         let time = new Date().getTime();
@@ -160,20 +194,20 @@ app.post('/newFolder', function (req, res) {
         fs.mkdir(filepath, (err) => {
             if (err) throw err
 
-            res.redirect(folderPath)
+            res.redirect(path.join("files", folderPath))
         })
     }
 })
 
 app.post('/deleteFile', function (req, res) {
-    console.log(folderPath);
+    //console.log(folderPath);
     let name = req.query.name
     let filepath = path.join("./files", folderPath, name!.toString())
 
     fs.unlink(filepath, (err) => {
         if (err) throw err
 
-        res.redirect(folderPath)
+        res.redirect(path.join("files", folderPath))
     })
 });
 
@@ -184,14 +218,16 @@ app.post('/deleteFolder', function (req, res) {
         fs.rm(filepath, { recursive: true }, (err) => {
             if (err) throw err
 
-            res.redirect(folderPath)
+            res.redirect(path.join("files", folderPath))
         })
     }
 });
 
 app.post('/show/*', function (req, res) {
     let url = req.url
-    res.sendFile(path.join("./files", url.slice(5)))
+    //console.log(url.slice(5));
+
+    res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
 });
 
 const fileIcons = [

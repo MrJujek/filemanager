@@ -74,6 +74,10 @@
   font-size: 20px;
   font-family: "Bungee", Arial;
   text-shadow: 1px 1px 1px #000000;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .leftPanel span {
@@ -135,6 +139,7 @@
   padding-right: 10px;
   text-shadow: 1px 1px 1px #ffffff;
   z-index: 1;
+  width: 150px;
 }
 
 .leftPanel input[type="submit"]:hover {
@@ -409,7 +414,7 @@
   text-shadow: 1px 1px 1px black;
   text-decoration: none;
   font-size: 18px;
-  padding: 0px 5px;
+  padding: 1px 5px;
 }
 
 .fileLink:hover {
@@ -419,19 +424,45 @@
   border-radius: 5px;
 }
 
-.filePath {
-  font-family: "Noto Sans";
-  font-size: 32px;
-  margin-top: 100px;
-  color: #ffffff;
-  text-shadow: 1px 1px 10px black;
-  padding: 0px 5px;
+.filePathDiv {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 10px 0px 0px 10px;
 }
 
-.filePath:hover {
-  cursor: pointer;
+.filePathDiv .filePath {
+  font-family: "Noto Sans";
+  font-size: 32px;
+  color: #ffffff;
+  text-shadow: 1px 1px 10px black;
+  text-decoration: none;
+  height: 43px;
+}
+
+.filePathDiv .filePath:hover ~ .filePath {
+  background: none;
+}
+
+.filePathDiv:hover .filePath {
   background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
   background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.homeIcon {
+  height: 30px;
+  width: auto;
+  margin: 8px 0px 0px 5px;
 }
 /*# sourceMappingURL=style.css.map */
