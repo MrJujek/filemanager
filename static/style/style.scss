@@ -341,6 +341,7 @@
     flex-wrap: wrap;
     margin: 10px 0px 0px 10px;
 
+    span,
     .filePath {
         font-family: "Noto Sans";
         font-size: 32px;
@@ -368,5 +369,5 @@
 .homeIcon {
     height: 30px;
     width: auto;
-    margin: 8px 0px 0px 5px;
+    // margin: 8px 0px 0px 5px;
 }

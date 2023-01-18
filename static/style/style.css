@@ -440,6 +440,7 @@
   margin: 10px 0px 0px 10px;
 }
 
+.filePathDiv span,
 .filePathDiv .filePath {
   font-family: "Noto Sans";
   font-size: 32px;
@@ -449,6 +450,7 @@
   height: 43px;
 }
 
+.filePathDiv span:hover ~ .filePath,
 .filePathDiv .filePath:hover ~ .filePath {
   background: none;
 }
@@ -463,6 +465,5 @@
 .homeIcon {
   height: 30px;
   width: auto;
-  margin: 8px 0px 0px 5px;
 }
 /*# sourceMappingURL=style.css.map */

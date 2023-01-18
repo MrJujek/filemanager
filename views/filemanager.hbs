@@ -20,8 +20,7 @@
         {{#each filePath}}
 
         {{#if @first}}
-        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home"
-                class="homeIcon"><span>/</span></a>
+        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon">/</a>
         {{else}}
         <a class="filePath" href="/files{{path}}">{{ name }}</a>
         {{/if}}
