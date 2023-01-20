@@ -148,6 +148,7 @@
   cursor: pointer;
 }
 
+.renameFolder,
 .createNewFile,
 .buttonNewFolder {
   text-align: center;
@@ -164,16 +165,19 @@
   width: 200px;
 }
 
+.renameFolder a,
 .createNewFile a,
 .buttonNewFolder a {
   text-decoration: none;
 }
 
+.renameFolder a:visited,
 .createNewFile a:visited,
 .buttonNewFolder a:visited {
   color: blue;
 }
 
+.renameFolder:hover,
 .createNewFile:hover,
 .buttonNewFolder:hover {
   color: #ffffff;
@@ -181,6 +185,7 @@
   cursor: pointer;
 }
 
+.renameFolder:hover a,
 .createNewFile:hover a,
 .buttonNewFolder:hover a {
   color: #ffffff;
@@ -327,6 +332,7 @@
   width: 15px;
 }
 
+#dialogrenamefolder,
 #dialognewfolder,
 #dialognewfile {
   -webkit-user-select: none;
@@ -352,6 +358,7 @@
           box-shadow: 1px 1px 100px #999;
 }
 
+#dialogrenamefolder input,
 #dialognewfolder input,
 #dialognewfile input {
   font-family: 'Noto Sans';
@@ -363,6 +370,7 @@
   padding: 5px;
 }
 
+#dialogrenamefolder .dialogButtons,
 #dialognewfolder .dialogButtons,
 #dialognewfile .dialogButtons {
   display: -webkit-box;
@@ -374,6 +382,8 @@
   margin-top: 5px;
 }
 
+#dialogrenamefolder .dialogButtons button[type="submit"],
+#dialogrenamefolder .dialogButtons div,
 #dialognewfolder .dialogButtons button[type="submit"],
 #dialognewfolder .dialogButtons div,
 #dialognewfile .dialogButtons button[type="submit"],
@@ -390,6 +400,8 @@
   width: 80px;
 }
 
+#dialogrenamefolder .dialogButtons button[type="submit"]:hover,
+#dialogrenamefolder .dialogButtons div:hover,
 #dialognewfolder .dialogButtons button[type="submit"]:hover,
 #dialognewfolder .dialogButtons div:hover,
 #dialognewfile .dialogButtons button[type="submit"]:hover,
@@ -399,6 +411,8 @@
   cursor: pointer;
 }
 
+#dialogrenamefolder .dialogButtons button[type="submit"]:hover a:visited,
+#dialogrenamefolder .dialogButtons div:hover a:visited,
 #dialognewfolder .dialogButtons button[type="submit"]:hover a:visited,
 #dialognewfolder .dialogButtons div:hover a:visited,
 #dialognewfile .dialogButtons button[type="submit"]:hover a:visited,
@@ -456,9 +470,9 @@
 }
 
 .filePathDiv:hover .filePath {
-  background: -webkit-gradient(linear, left top, right top, from(#4222c3), to(#802dfd));
-  background: linear-gradient(90deg, #4222c3 0%, #802dfd 100%);
-  border-radius: 5px;
+  background: -webkit-gradient(linear, left bottom, left top, from(#4222c3), to(#802dfd));
+  background: linear-gradient(0deg, #4222c3 0%, #802dfd 100%);
+  border-radius: 3px;
   cursor: pointer;
 }
 

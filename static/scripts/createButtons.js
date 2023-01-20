@@ -69,3 +69,40 @@ function createNewFolder() {
 
     document.body.append(element)
 }
+
+function renameFolder() {
+    let element = document.createElement("div")
+    element.id = "dialogrenamefolder"
+    element.innerText = "Input new folder name:"
+
+    let form = document.createElement("form")
+    form.method = "POST"
+    form.action = "/renameFolder"
+
+    let input = document.createElement("input")
+    input.required = true
+    form.append(input)
+
+    let buttons = document.createElement("div")
+    buttons.classList.add("dialogButtons")
+
+    let create = document.createElement("button")
+    create.type = "submit"
+    create.innerText = "Rename"
+
+    let cancel = document.createElement("div")
+    cancel.innerText = "Cancel"
+    cancel.addEventListener("click", () => {
+        document.getElementById("dialogrenamefolder").remove()
+    })
+
+    input.addEventListener("input", () => {
+        form.action = "/renameFolder?name=" + input.value
+    })
+
+    buttons.append(create, cancel)
+    form.append(buttons)
+    element.append(form)
+
+    document.body.append(element)
+}

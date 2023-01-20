@@ -119,6 +119,7 @@
     }
 }
 
+.renameFolder,
 .createNewFile,
 .buttonNewFolder {
     text-align: center;
@@ -258,6 +259,7 @@
     }
 }
 
+#dialogrenamefolder,
 #dialognewfolder,
 #dialognewfile {
     user-select: none;
@@ -359,8 +361,8 @@
 
     &:hover {
         .filePath {
-            background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
-            border-radius: 5px;
+            background: linear-gradient(0deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
+            border-radius: 3px;
             cursor: pointer;
         }
     }

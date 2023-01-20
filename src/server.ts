@@ -49,7 +49,7 @@ app.get("/", function (req, res) {
 
 app.get("/files/*", async function (req, res) {
     folderPath = req.url.slice(6)
-    console.log("folderPath: ", folderPath);
+    //console.log("folderPath: ", folderPath);
 
     fs.readdir(path.join("files", folderPath), (err, files) => {
         if (err) console.log(err)
@@ -61,17 +61,11 @@ app.get("/files/*", async function (req, res) {
             files: []
         }
 
-        //console.log(folderPath.split('/').length);
-
         for (let i = 0; i < folderPath.split("/").length; i++) {
-            //console.log("iiiiii:", i);
-
             let toPush = { name: "", path: "" }
             toPush.name = folderPath.split("/")[i] + "/"
 
             for (let j = 0; j <= i; j++) {
-                //console.log("j:", j);
-
                 toPush.path = path.join("/", toPush.path, folderPath.split("/")[j])
             }
             context.filePath.push(toPush)
@@ -81,11 +75,7 @@ app.get("/files/*", async function (req, res) {
             context.filePath = [context.filePath[0]]
         }
 
-        console.log("URL: ", req.url);
-
         files.forEach((file) => {
-            //console.log(file);
-
             fs.lstat(`./files${folderPath}/${file}`, (err, stats) => {
                 let fileToPush: FileToPushInterface = {
                     name: file,
@@ -107,7 +97,6 @@ app.get("/files/*", async function (req, res) {
             })
         })
 
-        //console.log(context);
         res.render('filemanager.hbs', context);
     })
 })
@@ -134,7 +123,6 @@ app.post("/upload", function (req, res) {
             }
         }
         file.filepath = path.join('./files', folderPath, fileName!)
-        //console.log(file.filepath);
     })
 
     form.parse(req, function (err, fields, files) {
@@ -180,7 +168,7 @@ app.post('/newFolder', function (req, res) {
     }
 
     let filepath = path.join("./files", folderPath, name.toString())
-    //console.log(filepath);
+
     if (!fs.existsSync(filepath)) {
         fs.mkdir(filepath, (err) => {
             if (err) throw err
@@ -200,7 +188,6 @@ app.post('/newFolder', function (req, res) {
 })
 
 app.post('/deleteFile', function (req, res) {
-    //console.log(folderPath);
     let name = req.query.name
     let filepath = path.join("./files", folderPath, name!.toString())
 
@@ -223,9 +210,29 @@ app.post('/deleteFolder', function (req, res) {
     }
 });
 
+app.post('/renameFolder', function (req, res) {
+    let name = req.query.name
+
+    let oldPath = folderPath.split("/")
+    oldPath.pop()
+    let newPath = oldPath.join("/")
+
+    let filepath = path.join("./files", folderPath)
+
+    if (fs.existsSync(filepath)) {
+        console.log("zmiana nazwy");
+
+        fs.rename("./files" + folderPath, "./files/" + newPath + name!.toString(), (err) => {
+            if (err) console.log(err)
+            else {
+                res.redirect(path.join("files", newPath, name!.toString()))
+            }
+        })
+    }
+});
+
 app.post('/show/*', function (req, res) {
     let url = req.url
-    //console.log(url.slice(5));
 
     res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
 });

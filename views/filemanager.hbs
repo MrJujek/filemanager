@@ -6,6 +6,18 @@
     <div class="createNewFile" onclick="createNewFile()">
         Create new file
     </div>
+    {{#each filePath}}
+
+    {{#if @first}}
+
+    {{else}}
+    <div class="renameFolder" onclick="renameFolder()">
+        Rename folder
+    </div>
+    {{/if}}
+
+    {{/each}}
+
     <div class="uploadFiles">
         <form action="/upload" method="post" enctype="multipart/form-data">
             <img src="/icons/direct-download.png" alt="Select files">
