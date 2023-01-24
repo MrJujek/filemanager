@@ -1,0 +1,57 @@
+.divForFontChangingButtons {
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+    margin: 5px;
+
+    .fontChangingButton {
+        text-align: center;
+        font-size: 16px;
+        text-decoration: none;
+        border: 1px solid darkorange;
+        background-color: orange;
+        border-radius: 5px;
+        color: blue;
+        font-family: "Bungee", Arial;
+        text-shadow: 1px 1px 1px #ffffff;
+        width: 95px;
+
+        &:hover {
+            color: #ffffff;
+            text-shadow: 1px 1px 1px blue;
+            cursor: pointer;
+        }
+    }
+}
+
+.saveFile,
+.changeColor,
+.saveChanges,
+.renameFile {
+    text-align: center;
+    font-size: 16px;
+    text-decoration: none;
+    border: 1px solid darkorange;
+    background-color: orange;
+    border-radius: 5px;
+    color: blue;
+    font-family: "Bungee", Arial;
+    text-shadow: 1px 1px 1px #ffffff;
+    width: 200px;
+    margin: 5px;
+
+    &:hover {
+        color: #ffffff;
+        text-shadow: 1px 1px 1px blue;
+        cursor: pointer;
+
+        a:visited {
+            color: #ffffff;
+        }
+    }
+}
+
+textarea {
+    margin: 5px;
+    width: 100%;
+}

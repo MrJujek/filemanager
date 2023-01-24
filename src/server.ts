@@ -43,12 +43,14 @@ let context: ContextInterface = {
 let allFiles: string[]
 let folderPath: string
 
+const fileToEdit = ["txt", "css", "html", "js", "ts", "json"]
+
 app.get("/", function (req, res) {
     res.redirect("/files/")
 });
 
 app.get("/files/*", async function (req, res) {
-    folderPath = req.url.slice(6)
+    folderPath = decodeURI(req.url.slice(6))
     //console.log("folderPath: ", folderPath);
 
     fs.readdir(path.join("files", folderPath), (err, files) => {
@@ -232,10 +234,21 @@ app.post('/renameFolder', function (req, res) {
 });
 
 app.post('/show/*', function (req, res) {
-    let url = req.url
+    let url = decodeURI(req.url)
 
-    res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
+    if (fileToEdit.includes(url.slice(url.length - 3, url.length))) {
+        res.redirect(307, "/editor" + url)
+    } else {
+        res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
+    }
 });
+
+app.post('/editor/*', function (req, res) {
+    let url = decodeURI(req.url)
+    console.log(url);
+
+    res.render('editor.hbs', context);
+})
 
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',

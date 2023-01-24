@@ -1,5 +1,73 @@
 @import url(https://fonts.googleapis.com/css?family=Bungee:regular);
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+.divForFontChangingButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 200px;
+  margin: 5px;
+}
+
+.divForFontChangingButtons .fontChangingButton {
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+  width: 95px;
+}
+
+.divForFontChangingButtons .fontChangingButton:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.saveFile,
+.changeColor,
+.saveChanges,
+.renameFile {
+  text-align: center;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+  width: 200px;
+  margin: 5px;
+}
+
+.saveFile:hover,
+.changeColor:hover,
+.saveChanges:hover,
+.renameFile:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.saveFile:hover a:visited,
+.changeColor:hover a:visited,
+.saveChanges:hover a:visited,
+.renameFile:hover a:visited {
+  color: #ffffff;
+}
+
+textarea {
+  margin: 5px;
+  width: 100%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -78,6 +146,7 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  padding: 0px 5px;
 }
 
 .leftPanel span {
@@ -148,6 +217,10 @@
   cursor: pointer;
 }
 
+.rightPanel {
+  width: 100%;
+}
+
 .renameFolder,
 .createNewFile,
 .buttonNewFolder {
@@ -212,7 +285,7 @@
 }
 
 .uploadFiles {
-  margin: 10px;
+  margin: 5px;
   border: 3px dashed dimgray;
   background-color: #999999;
   border-radius: 5px;

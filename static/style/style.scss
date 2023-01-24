@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Bungee:regular);
 @import url(https://fonts.googleapis.com/css?family=Noto+Sans:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@import 'modules/editor';
 
 * {
     margin: 0;
@@ -58,6 +59,7 @@
     font-family: "Bungee", Arial;
     text-shadow: 1px 1px 1px #000000;
     user-select: none;
+    padding: 0px 5px;
 
     span {
         color: orange;
@@ -119,6 +121,10 @@
     }
 }
 
+.rightPanel {
+    width: 100%;
+}
+
 .renameFolder,
 .createNewFile,
 .buttonNewFolder {
@@ -175,7 +181,7 @@
 }
 
 .uploadFiles {
-    margin: 10px;
+    margin: 5px;
     border: 3px dashed rgb(105, 105, 105);
     background-color: #999999;
     border-radius: 5px;

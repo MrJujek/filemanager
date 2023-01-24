@@ -37,7 +37,7 @@ function createNewFile() {
 function createNewFolder() {
     let element = document.createElement("div")
     element.id = "dialognewfolder"
-    element.innerText = "Input file name:"
+    element.innerText = "Input folder name:"
 
     let form = document.createElement("form")
     form.method = "POST"
