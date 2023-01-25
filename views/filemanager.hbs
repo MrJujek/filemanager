@@ -18,7 +18,7 @@
 
     {{/each}}
 
-<script src="/scripts/deleteUselessRename.js"></script>
+    <script src="/scripts/deleteUselessRename.js"></script>
 
     <div class="uploadFiles">
         <form action="/upload" method="post" enctype="multipart/form-data">
@@ -34,7 +34,7 @@
         {{#each filePath}}
 
         {{#if @first}}
-        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon">/</a>
+        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
         {{else}}
         <a class="filePath" href="/files{{path}}">{{ name }}</a>
         {{/if}}

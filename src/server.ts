@@ -33,6 +33,10 @@ interface PathLinks {
     name: string
     path: string
 }
+interface EditorData {
+    filePath: PathLinks[]
+    text: string
+}
 
 let context: ContextInterface = {
     filePath: [],
@@ -65,7 +69,7 @@ app.get("/files/*", async function (req, res) {
 
         for (let i = 0; i < folderPath.split("/").length; i++) {
             let toPush = { name: "", path: "" }
-            toPush.name = folderPath.split("/")[i] + "/"
+            toPush.name = "/" + folderPath.split("/")[i]
 
             for (let j = 0; j <= i; j++) {
                 toPush.path = path.join("/", toPush.path, folderPath.split("/")[j])
@@ -235,9 +239,11 @@ app.post('/renameFolder', function (req, res) {
 
 app.post('/show/*', function (req, res) {
     let url = decodeURI(req.url)
+    console.log("/show url: ", url);
 
-    if (fileToEdit.includes(url.slice(url.length - 3, url.length))) {
-        res.redirect(307, "/editor" + url)
+
+    if (fileToEdit.includes(url.split(".")[url.split(".").length - 1])) {
+        res.redirect(307, "/editor" + url.slice(5))
     } else {
         res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
     }
@@ -245,9 +251,34 @@ app.post('/show/*', function (req, res) {
 
 app.post('/editor/*', function (req, res) {
     let url = decodeURI(req.url)
-    console.log(url);
+    let filePath = url
 
-    res.render('editor.hbs', context);
+    let editorData: EditorData = {
+        filePath: [],
+        text: ""
+    }
+
+    for (let i = 0; i < filePath.split("/").length; i++) {
+        let toPush = { name: "", path: "" }
+        toPush.name = "/" + filePath.split("/")[i]
+
+        for (let j = 0; j <= i; j++) {
+            toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
+        }
+        editorData.filePath.push(toPush)
+    }
+    if (editorData.filePath[0].path == editorData.filePath[1].path) {
+        editorData.filePath = [editorData.filePath[0]]
+    }
+
+    fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
+        if (err) console.error(err);
+
+        editorData.text += data;
+
+        console.log(editorData);
+        res.render('editor.hbs', editorData);
+    });
 })
 
 const fileIcons = [

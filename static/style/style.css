@@ -63,9 +63,42 @@
   color: #ffffff;
 }
 
-textarea {
-  margin: 5px;
+.saveFile {
+  margin: auto;
+}
+
+.divForTextarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 400px;
+  padding: 5px;
   width: 100%;
+}
+
+.divForTextarea #linesNumbers {
+  max-height: 100%;
+}
+
+.divForTextarea #linesNumbers .lineNumber {
+  line-height: 20px;
+  font-family: "Noto Sans", Arial;
+  text-align: right;
+  color: blue;
+  text-shadow: 1px 1px 1px #ffffff;
+}
+
+.divForTextarea .editor {
+  height: 100%;
+  width: 100% !important;
+  line-height: 20px;
+  padding-left: 5px;
+  border: none;
+  background-color: gray;
 }
 
 * {
@@ -552,5 +585,6 @@ textarea {
 .homeIcon {
   height: 30px;
   width: auto;
+  margin: 0px 5px;
 }
 /*# sourceMappingURL=style.css.map */

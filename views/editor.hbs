@@ -2,7 +2,7 @@
     File editor
 
     <div class="divForFontChangingButtons">
-       <div class="fontChangingButton" onclick="fontplus()">
+        <div class="fontChangingButton" onclick="fontplus()">
             Font +
         </div>
         <div class="fontChangingButton" onclick="fontminus()">
@@ -25,7 +25,7 @@
         {{#each filePath}}
 
         {{#if @first}}
-        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon">/</a>
+        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
         {{else}}
         <a class="filePath" href="/files{{path}}">{{ name }}</a>
         {{/if}}
@@ -34,9 +34,12 @@
     </div>
     <br>
     <label for="editor">Editor:</label><br>
-    <textarea name="editor" id="editor" rows="10" style="width: auto;"></textarea>
+    <div class="divForTextarea">
+        <div id="linesNumbers"></div>
+        <textarea name="editor" id="editor" class="editor" rows="10" style="width: auto;">{{text}}</textarea>
+    </div>
+    <script src="/scripts/textarea.js"></script>
     <div class="saveFile" onclick="">
         Save file
     </div>
-
 </div>
