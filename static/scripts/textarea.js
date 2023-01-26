@@ -1,24 +1,31 @@
-let lines = document.querySelector("textarea").value.split(/\r\n|\r|\n/).length;
-let linesNumbers = document.getElementById("linesNumbers")
+let editor = document.getElementById('editor');
+let linesNumbers = document.getElementById('linesNumbers');
 
-for (let i = 0; i < lines; i++) {
-    let number = document.createElement("p")
-    number.classList.add("lineNumber")
-    number.innerHTML = i + 1
+editor.addEventListener('scroll', () => {
+    linesNumbers.scrollTop = editor.scrollTop;
+    linesNumbers.scrollLeft = editor.scrollLeft;
+});
 
-    linesNumbers.appendChild(number)
+linesNumbers.addEventListener('scroll', () => {
+    editor.scrollTop = linesNumbers.scrollTop;
+    editor.scrollLeft = linesNumbers.scrollLeft;
+})
+
+let oldLineCount = 0;
+function countLines() {
+    let lineCount = editor.value.split('\n').length;
+    let array = []
+    if (oldLineCount != lineCount) {
+        for (let i = 0; i < lineCount; i++) {
+            array[i] = i + 1;
+        }
+        linesNumbers.value = array.join('\n');
+    }
+    oldLineCount = lineCount;
 }
 
-document.getElementById("editor").addEventListener("input", function () {
-    lines = document.querySelector("textarea").value.split(/\r\n|\r|\n/).length;
-    linesNumbers = document.getElementById("linesNumbers")
-    linesNumbers.innerHTML = ""
+editor.addEventListener('change', () => {
+    countLines();
+});
 
-    for (let i = 0; i < lines; i++) {
-        let number = document.createElement("p")
-        number.classList.add("lineNumber")
-        number.innerHTML = i + 1
-
-        linesNumbers.appendChild(number)
-    }
-})
+countLines();

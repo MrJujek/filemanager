@@ -32,11 +32,11 @@
 
         {{/each}}
     </div>
-    <br>
-    <label for="editor">Editor:</label><br>
+    <label for="editor">Editor:</label>
     <div class="divForTextarea">
-        <div id="linesNumbers"></div>
-        <textarea name="editor" id="editor" class="editor" rows="10" style="width: auto;">{{text}}</textarea>
+        <textarea name="linesNumbers" id="linesNumbers" class="linesNumbers" readonly spellcheck="false"
+            wrap="hard"></textarea>
+        <textarea name="editor" id="editor" class="editor" rows="10">{{text}}</textarea>
     </div>
     <script src="/scripts/textarea.js"></script>
     <div class="saveFile" onclick="">

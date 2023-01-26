@@ -24,11 +24,19 @@
     }
 }
 
+.saveFile {
+    height: 50px;
+    font-size: 18px !important;
+}
+
 .saveFile,
 .changeColor,
 .saveChanges,
 .renameFile {
+    display: flex;
+    justify-content: center;
     text-align: center;
+    align-items: center;
     font-size: 16px;
     text-decoration: none;
     border: 1px solid darkorange;
@@ -55,31 +63,52 @@
     margin: auto;
 }
 
+label {
+    display: none;
+}
+
 .divForTextarea {
+    margin: 10px;
     display: flex;
     flex-direction: row;
-    height: 400px;
+    height: calc(100% - 150px);
     padding: 5px;
-    width: 100%;
+    width: calc(100% - 20px);
+    background-color: #282a3a;
+    border-radius: 5px;
 
-    #linesNumbers {
+    .linesNumbers {
         max-height: 100%;
+        padding-right: 10px;
+        border: none;
+        border-right: 1px solid #ffffff;
+        background-color: #282a3a;
+        line-height: 20px;
+        font-family: "Noto Sans", Arial;
+        color: #5d7997;
+        outline: none;
+        resize: none;
+        width: 3rem;
+        scrollbar-width: none;
+        text-align: right;
+        user-select: none;
 
-        .lineNumber {
-            line-height: 20px;
-            font-family: "Noto Sans", Arial;
-            text-align: right;
-            color: blue;
-            text-shadow: 1px 1px 1px #ffffff;
+        &::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
         }
     }
 
     .editor {
         height: 100%;
-        width: 100% !important;
+        width: 100%;
         line-height: 20px;
-        padding-left: 5px;
+        padding-left: 10px;
         border: none;
-        background-color: gray;
+        background-color: #282a3a;
+        color: #ffffff;
+        outline: none;
+        resize: none;
+        font-family: "Noto Sans", Arial;
     }
 }
