@@ -281,6 +281,11 @@ app.post('/editor/*', function (req, res) {
     });
 })
 
+app.post('/saveFile', function (req, res) {
+    let name = req.query.name
+    console.log("name: ", name);
+})
+
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',
     'avi.png', 'bmp.png', 'cad.png',

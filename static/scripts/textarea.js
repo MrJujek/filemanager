@@ -29,3 +29,16 @@ editor.addEventListener('change', () => {
 });
 
 countLines();
+
+function saveFile() {
+    console.log('Saving file...');
+    fetch('/saveFile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            elo: "elo"
+        })
+    })
+}
