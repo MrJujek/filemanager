@@ -24,7 +24,7 @@ function countLines() {
     oldLineCount = lineCount;
 }
 
-editor.addEventListener('change', () => {
+editor.addEventListener('input', () => {
     countLines();
 });
 
@@ -38,7 +38,11 @@ function saveFile() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            elo: "elo"
+            text: document.getElementById('editor').value,
+            file_path: document.getElementById('file_path').getAttribute("href")
         })
-    })
+    }).then(response => response.json())
+        .then(
+            data => console.log(data) // dane odpowiedzi z serwera
+        )
 }

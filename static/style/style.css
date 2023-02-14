@@ -241,8 +241,8 @@ label {
 }
 
 .leftPanel input[type="file"] {
-  width: 215px;
-  height: 250px;
+  width: 200px;
+  height: 180px;
   position: absolute;
   opacity: 0;
 }

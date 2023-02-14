@@ -9,6 +9,7 @@ dotenv.config();
 const app = express()
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
 app.use(express.static('./static'))
 app.use(express.urlencoded({
     extended: true
@@ -228,7 +229,7 @@ app.post('/renameFolder', function (req, res) {
     if (fs.existsSync(filepath)) {
         console.log("zmiana nazwy");
 
-        fs.rename("./files" + folderPath, "./files/" + newPath + name!.toString(), (err) => {
+        fs.rename(filepath, "./files/" + newPath + "/" + name!.toString(), (err) => {
             if (err) console.log(err)
             else {
                 res.redirect(path.join("files", newPath, name!.toString()))
@@ -239,19 +240,21 @@ app.post('/renameFolder', function (req, res) {
 
 app.post('/show/*', function (req, res) {
     let url = decodeURI(req.url)
-    console.log("/show url: ", url);
-
+    // console.log("/show url: ", url);
 
     if (fileToEdit.includes(url.split(".")[url.split(".").length - 1])) {
-        res.redirect(307, "/editor" + url.slice(5))
+        res.redirect("/editor" + url.slice(5))
     } else {
         res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
     }
 });
 
-app.post('/editor/*', function (req, res) {
+app.get('/editor/*', function (req, res) {
     let url = decodeURI(req.url)
-    let filePath = url
+    let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
+
+
+    let filePath = path.join(url_path, url.split("/").slice(-1)[0].toString());
 
     let editorData: EditorData = {
         filePath: [],
@@ -274,16 +277,21 @@ app.post('/editor/*', function (req, res) {
     fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
         if (err) console.error(err);
 
-        editorData.text += data;
+        editorData.text = data;
 
-        console.log(editorData);
         res.render('editor.hbs', editorData);
     });
 })
 
 app.post('/saveFile', function (req, res) {
-    let name = req.query.name
-    console.log("name: ", name);
+    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length)
+
+    fs.writeFile("./files/" + filepath, req.body.text, (err) => {
+        if (err) throw err
+        console.log("plik zapisany");
+    })
+
+    //res.end("File saved");
 })
 
 const fileIcons = [
