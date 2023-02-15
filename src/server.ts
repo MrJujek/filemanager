@@ -253,8 +253,7 @@ app.get('/editor/*', function (req, res) {
     let url = decodeURI(req.url)
     let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
 
-
-    let filePath = path.join(url_path, url.split("/").slice(-1)[0].toString());
+    let filePath = path.join(url_path);
 
     let editorData: EditorData = {
         filePath: [],
@@ -262,10 +261,10 @@ app.get('/editor/*', function (req, res) {
     }
 
     for (let i = 0; i < filePath.split("/").length; i++) {
-        let toPush = { name: "", path: "" }
+        let toPush = { name: "", path: "/" }
         toPush.name = "/" + filePath.split("/")[i]
 
-        for (let j = 0; j <= i; j++) {
+        for (let j = 1; j <= i; j++) {
             toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
         }
         editorData.filePath.push(toPush)
