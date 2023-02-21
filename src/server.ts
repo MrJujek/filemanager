@@ -8,6 +8,9 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express()
 const PORT = process.env.PORT || 3000;
+const cookieparser = require("cookie-parser");
+const nocache = require("nocache");
+
 
 app.use(express.json());
 app.use(express.static('./static'))
@@ -15,6 +18,8 @@ app.use(express.urlencoded({
     extended: true
 }));
 app.use('/favicon.ico', express.static('./static/icons/folder.png'));
+app.use(cookieparser())
+app.use(nocache())
 
 app.engine('hbs', engine({ defaultLayout: 'main.hbs' }));
 app.set('view engine', 'hbs');
@@ -250,6 +255,10 @@ app.post('/show/*', function (req, res) {
 });
 
 app.get('/editor/*', function (req, res) {
+    let users = require("../data/users.json")
+    console.log("users: ", users);
+
+
     let url = decodeURI(req.url)
     let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
 
@@ -313,6 +322,10 @@ app.post('/renameFile', function (req, res) {
         })
     }
 });
+
+app.get('/signin', function (req, res) {
+    res.render('signin.hbs')
+})
 
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',

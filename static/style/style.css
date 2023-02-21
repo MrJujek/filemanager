@@ -81,7 +81,7 @@
   margin: auto;
 }
 
-label {
+label[for="editor"] {
   display: none;
 }
 
@@ -206,6 +206,101 @@ label {
 #dialogrenamefile .dialogButtons button[type="submit"]:hover a:visited,
 #dialogrenamefile .dialogButtons div:hover a:visited {
   color: #ffffff;
+}
+
+.signup {
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  font-size: 16px;
+  text-shadow: 1px 1px 1px #ffffff;
+  padding: 0px 5px;
+  margin: 20px;
+  width: 100px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.signup:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.signindiv {
+  margin: 50px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.signindiv label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 24px;
+  color: orange;
+  text-shadow: 1px 1px 1px black;
+  font-family: 'Bungee';
+}
+
+.signindiv input[type="text"],
+.signindiv input[type="password"] {
+  font-family: 'Noto Sans';
+  border: 1px solid darkorange;
+  border-radius: 5px;
+  height: 40px;
+  width: 200px;
+  font-size: 28px;
+  padding: 5px;
+}
+
+.signindiv input[type="button"] {
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  font-size: 16px;
+  text-shadow: 1px 1px 1px #ffffff;
+  padding: 0px 5px;
+  margin: 10px;
+  width: 100px;
+  height: 50px;
+}
+
+.signindiv input[type="button"]:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
 }
 
 * {
@@ -465,6 +560,7 @@ label {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  margin-left: 5px;
 }
 
 .row .element {

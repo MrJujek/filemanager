@@ -1,0 +1,74 @@
+.signup {
+    text-align: center;
+    text-decoration: none;
+    border: 1px solid darkorange;
+    background-color: orange;
+    border-radius: 5px;
+    color: blue;
+    font-family: "Bungee", Arial;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px #ffffff;
+    padding: 0px 5px;
+    margin: 20px;
+    width: 100px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        color: #ffffff;
+        text-shadow: 1px 1px 1px blue;
+        cursor: pointer;
+    }
+}
+
+.signindiv {
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+
+    label {
+        user-select: none;
+        font-size: 24px;
+        color: orange;
+        text-shadow: 1px 1px 1px black;
+        font-family: 'Bungee';
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-family: 'Noto Sans';
+        border: 1px solid darkorange;
+        border-radius: 5px;
+        height: 40px;
+        width: 200px;
+        font-size: 28px;
+        padding: 5px;
+    }
+
+    input[type="button"] {
+        text-align: center;
+        text-decoration: none;
+        border: 1px solid darkorange;
+        background-color: orange;
+        border-radius: 5px;
+        color: blue;
+        font-family: "Bungee", Arial;
+        font-size: 16px;
+        text-shadow: 1px 1px 1px #ffffff;
+        padding: 0px 5px;
+        margin: 10px;
+        width: 100px;
+        height: 50px;
+
+        &:hover {
+            color: #ffffff;
+            text-shadow: 1px 1px 1px blue;
+            cursor: pointer;
+        }
+    }
+}
