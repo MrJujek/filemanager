@@ -283,15 +283,36 @@ app.get('/editor/*', function (req, res) {
 })
 
 app.post('/saveFile', function (req, res) {
-    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length)
+    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length).join("/")
 
     fs.writeFile("./files/" + filepath, req.body.text, (err) => {
         if (err) throw err
         console.log("plik zapisany");
     })
 
-    //res.end("File saved");
+    res.end("File saved");
 })
+
+app.post('/renameFile', function (req, res) {
+    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length).join("/")
+    let newName = req.body.newName
+
+    console.log("filepath: ", filepath);
+    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[1]
+    console.log("newPath: ", newPath);
+
+
+    if (fs.existsSync("./files/" + filepath)) {
+        console.log("zmiana nazwy");
+
+        fs.rename("./files/" + filepath, "./files/" + newPath, (err) => {
+            if (err) console.log(err)
+            else {
+                res.end(path.join("editor", newPath))
+            }
+        })
+    }
+});
 
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',

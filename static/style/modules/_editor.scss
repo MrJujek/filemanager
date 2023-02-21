@@ -81,7 +81,8 @@ label {
         max-height: 100%;
         padding-right: 10px;
         border: none;
-        border-right: 1px solid #ffffff;
+        border-right: 1px solid;
+        border-color: #ffffff;
         background-color: #282a3a;
         line-height: 20px;
         font-family: "Noto Sans", Arial;
@@ -110,5 +111,62 @@ label {
         outline: none;
         resize: none;
         font-family: "Noto Sans", Arial;
+    }
+}
+
+#dialogrenamefile {
+    user-select: none;
+    font-size: 24px;
+    color: orange;
+    text-shadow: 1px 1px 1px black;
+    font-family: 'Bungee';
+    position: absolute;
+    top: 100px;
+    left: calc((100vw - 400px)/2);
+    height: fit-content;
+    width: 400px;
+    border: 3px solid darkorange;
+    background-color: #999;
+    border-radius: 20px;
+    padding: 10px;
+
+    input {
+        font-family: 'Noto Sans';
+        border: 1px solid darkorange;
+        border-radius: 5px;
+        height: 40px;
+        width: 100%;
+        font-size: 28px;
+        padding: 5px;
+    }
+
+    .dialogButtons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+
+        button[type="submit"],
+        div {
+            text-align: center;
+            font-size: 16px;
+            text-decoration: none;
+            border: 1px solid darkorange;
+            background-color: orange;
+            border-radius: 5px;
+            color: blue;
+            font-family: "Bungee", Arial;
+            text-shadow: 1px 1px 1px #ffffff;
+            width: 80px;
+
+            &:hover {
+                color: #ffffff;
+                text-shadow: 1px 1px 1px blue;
+                cursor: pointer;
+
+                a:visited {
+                    color: #ffffff;
+                }
+            }
+        }
     }
 }
