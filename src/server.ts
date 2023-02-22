@@ -4,6 +4,7 @@ import { engine } from "express-handlebars";
 import * as fs from "fs";
 import * as path from "path";
 import dotenv from "dotenv";
+import { JSONParser } from "formidable/parsers";
 
 dotenv.config();
 const app = express()
@@ -56,61 +57,70 @@ let folderPath: string
 const fileToEdit = ["txt", "css", "html", "js", "ts", "json"]
 
 app.get("/", function (req, res) {
-    res.redirect("/files/")
+    if (req.cookies.user) {
+        let cookie = JSON.parse(req.cookies["user"])
+        console.log(cookie);
+        res.redirect("/files/")
+    } else {
+        res.redirect("/signin")
+    }
 });
 
 app.get("/files/*", async function (req, res) {
-    folderPath = decodeURI(req.url.slice(6))
-    //console.log("folderPath: ", folderPath);
+    if (!req.cookies.user) {
+        res.redirect("/signin")
+    } else {
+        folderPath = decodeURI(req.url.slice(6))
 
-    fs.readdir(path.join("files", folderPath), (err, files) => {
-        if (err) console.log(err)
-        allFiles = files
+        fs.readdir(path.join("files", folderPath), (err, files) => {
+            if (err) console.log(err)
+            allFiles = files
 
-        context = {
-            filePath: [],
-            directories: [],
-            files: []
-        }
-
-        for (let i = 0; i < folderPath.split("/").length; i++) {
-            let toPush = { name: "", path: "" }
-            toPush.name = "/" + folderPath.split("/")[i]
-
-            for (let j = 0; j <= i; j++) {
-                toPush.path = path.join("/", toPush.path, folderPath.split("/")[j])
+            context = {
+                filePath: [],
+                directories: [],
+                files: []
             }
-            context.filePath.push(toPush)
-        }
 
-        if (context.filePath[0].path == context.filePath[1].path) {
-            context.filePath = [context.filePath[0]]
-        }
+            for (let i = 0; i < folderPath.split("/").length; i++) {
+                let toPush = { name: "", path: "" }
+                toPush.name = "/" + folderPath.split("/")[i]
 
-        files.forEach((file) => {
-            fs.lstat(`./files${folderPath}/${file}`, (err, stats) => {
-                let fileToPush: FileToPushInterface = {
-                    name: file,
-                    obraz: "unknown.png",
-                    path: ""
+                for (let j = 0; j <= i; j++) {
+                    toPush.path = path.join("/", toPush.path, folderPath.split("/")[j])
                 }
+                context.filePath.push(toPush)
+            }
 
-                if (stats.isDirectory()) {
-                    fileToPush.obraz = "folder.png"
-                    fileToPush.path = path.join(folderPath, file)
+            if (context.filePath[0].path == context.filePath[1].path) {
+                context.filePath = [context.filePath[0]]
+            }
 
-                    context.directories.push(fileToPush)
-                } else {
-                    fileToPush.obraz = getIcon(file)
-                    fileToPush.path = path.join(folderPath, file)
+            files.forEach((file) => {
+                fs.lstat(`./files${folderPath}/${file}`, (err, stats) => {
+                    let fileToPush: FileToPushInterface = {
+                        name: file,
+                        obraz: "unknown.png",
+                        path: ""
+                    }
 
-                    context.files.push(fileToPush)
-                }
+                    if (stats.isDirectory()) {
+                        fileToPush.obraz = "folder.png"
+                        fileToPush.path = path.join(folderPath, file)
+
+                        context.directories.push(fileToPush)
+                    } else {
+                        fileToPush.obraz = getIcon(file)
+                        fileToPush.path = path.join(folderPath, file)
+
+                        context.files.push(fileToPush)
+                    }
+                })
             })
-        })
 
-        res.render('filemanager.hbs', context);
-    })
+            res.render('filemanager.hbs', context);
+        })
+    }
 })
 
 app.post("/upload", function (req, res) {
@@ -255,40 +265,40 @@ app.post('/show/*', function (req, res) {
 });
 
 app.get('/editor/*', function (req, res) {
-    let users = require("../data/users.json")
-    console.log("users: ", users);
+    if (!req.cookies.user) {
+        res.redirect("/signin")
+    } else {
+        let url = decodeURI(req.url)
+        let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
 
+        let filePath = path.join(url_path);
 
-    let url = decodeURI(req.url)
-    let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
-
-    let filePath = path.join(url_path);
-
-    let editorData: EditorData = {
-        filePath: [],
-        text: ""
-    }
-
-    for (let i = 0; i < filePath.split("/").length; i++) {
-        let toPush = { name: "", path: "/" }
-        toPush.name = "/" + filePath.split("/")[i]
-
-        for (let j = 1; j <= i; j++) {
-            toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
+        let editorData: EditorData = {
+            filePath: [],
+            text: ""
         }
-        editorData.filePath.push(toPush)
+
+        for (let i = 0; i < filePath.split("/").length; i++) {
+            let toPush = { name: "", path: "/" }
+            toPush.name = "/" + filePath.split("/")[i]
+
+            for (let j = 1; j <= i; j++) {
+                toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
+            }
+            editorData.filePath.push(toPush)
+        }
+        if (editorData.filePath[0].path == editorData.filePath[1].path) {
+            editorData.filePath = [editorData.filePath[0]]
+        }
+
+        fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
+            if (err) console.error(err);
+
+            editorData.text = data;
+
+            res.render('editor.hbs', editorData);
+        });
     }
-    if (editorData.filePath[0].path == editorData.filePath[1].path) {
-        editorData.filePath = [editorData.filePath[0]]
-    }
-
-    fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
-        if (err) console.error(err);
-
-        editorData.text = data;
-
-        res.render('editor.hbs', editorData);
-    });
 })
 
 app.post('/saveFile', function (req, res) {
@@ -325,6 +335,53 @@ app.post('/renameFile', function (req, res) {
 
 app.get('/signin', function (req, res) {
     res.render('signin.hbs')
+})
+
+app.post('/signin', function (req, res) {
+    console.log("login: ", req.body.login)
+    console.log("password: ", req.body.password)
+
+    let users = require("../data/users.json")
+    console.log("users: ", users.users);
+
+    for (let i = 0; i < users.users.length; i++) {
+        if (req.body.login == users.users[i].login && req.body.password == users.users[i].password) {
+            res.cookie("user", JSON.stringify({ login: users.users[i].login, editorColor: users.users[i].editorColor, editorFont: users.users[i].editorFont }), { httpOnly: true, maxAge: 30 * 1000 });
+
+            res.end("Success")
+            return
+        }
+    }
+    res.end("Wrong data")
+
+})
+
+app.get('/signup', function (req, res) {
+    res.render('signup.hbs')
+})
+
+app.post('/signup', function (req, res) {
+    let users = require("../data/users.json")
+
+    for (let i = 0; i < users.users.length; i++) {
+        if (req.body.login == users.users[i].login) {
+            res.end("Wrong data")
+            return
+        }
+    }
+
+    users.users.push({ login: req.body.login, password: req.body.password, editorColor: 1, editorFont: 18 })
+
+    fs.writeFile("./data/users.json", JSON.stringify(users), (err) => {
+        if (err) {
+            console.log(err);
+
+            res.end("Wrong data")
+            return
+        }
+        res.end("Success")
+        return
+    })
 })
 
 const fileIcons = [

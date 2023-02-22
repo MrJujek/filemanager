@@ -44,7 +44,7 @@ function saveFile() {
     }).then(response => response.text())
         .then(
             data => {
-                console.log(data) // dane odpowiedzi z serwera\
+                console.log(data)
             }
         )
 }

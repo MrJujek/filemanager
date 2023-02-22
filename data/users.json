@@ -3,7 +3,14 @@
         {
             "login": "julo",
             "password": "julo",
-            "editorColor": 1
+            "editorColor": 1,
+            "editorFont": 18
+        },
+        {
+            "login": "asd",
+            "password": "asd",
+            "editorColor": 1,
+            "editorFont": 18
         }
     ]
 }
