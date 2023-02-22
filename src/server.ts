@@ -43,6 +43,8 @@ interface PathLinks {
 interface EditorData {
     filePath: PathLinks[]
     text: string
+    editorColor: number
+    editorFont: number
 }
 
 let context: ContextInterface = {
@@ -58,8 +60,6 @@ const fileToEdit = ["txt", "css", "html", "js", "ts", "json"]
 
 app.get("/", function (req, res) {
     if (req.cookies.user) {
-        let cookie = JSON.parse(req.cookies["user"])
-        console.log(cookie);
         res.redirect("/files/")
     } else {
         res.redirect("/signin")
@@ -273,9 +273,13 @@ app.get('/editor/*', function (req, res) {
 
         let filePath = path.join(url_path);
 
+        let cookie = JSON.parse(req.cookies["user"])
+
         let editorData: EditorData = {
             filePath: [],
-            text: ""
+            text: "",
+            editorColor: cookie.editorColor,
+            editorFont: cookie.editorFont
         }
 
         for (let i = 0; i < filePath.split("/").length; i++) {
@@ -332,6 +336,29 @@ app.post('/renameFile', function (req, res) {
         })
     }
 });
+
+app.post('/saveUserEditorSettings', function (req, res) {
+    let cookie = JSON.parse(req.cookies["user"])
+    let users = require("../data/users.json")
+
+    for (let i = 0; i < users.users.length; i++) {
+        if (cookie.login == users.users[i].login) {
+            users.users[i].editorColor = req.body.editorColor
+            users.users[i].editorFont = req.body.editorFont
+        }
+    }
+
+    fs.writeFile("./data/users.json", JSON.stringify(users), (err) => {
+        if (err) {
+            console.log(err);
+
+            res.end("Error")
+            return
+        }
+        res.end("Success")
+        return
+    })
+})
 
 app.get('/signin', function (req, res) {
     res.render('signin.hbs')

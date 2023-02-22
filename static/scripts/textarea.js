@@ -159,3 +159,52 @@ function renameFile() {
 
     document.body.append(element)
 }
+
+function setColorAndFont(editorColor, editorFont) {
+    console.log(editorColor, editorFont);
+    document.getElementById('editor').style.backgroundColor = colors[editorColor][0];
+    document.getElementById('editor').style.color = colors[editorColor][2];
+    document.getElementById('linesNumbers').style.backgroundColor = colors[editorColor][0];
+    document.getElementById('linesNumbers').style.color = colors[editorColor][1];
+    document.getElementById('linesNumbers').style.borderColor = colors[editorColor][1];
+
+    document.getElementById('editor').style.fontSize = editorFont + "px";
+    document.getElementById('editor').style.lineHeight = editorFont + "px";
+    document.getElementById('linesNumbers').style.fontSize = editorFont + "px";
+    document.getElementById('linesNumbers').style.lineHeight = editorFont + "px";
+}
+
+function savesettings() {
+    let parts = window.getComputedStyle(document.getElementById('editor')).backgroundColor.slice(4, -1).split(', ');
+    for (let i = 0; i < parts.length; i++) {
+        parts[i] = parseInt(parts[i]).toString(16);
+        if (parts[i].length == 1) parts[i] = '0' + parts[i];
+    }
+    let currentColor = '#' + parts.join('');
+
+    let colorToSave
+
+    for (let i = 1; i <= Object.keys(colors).length; i++) {
+        if (colors[i][0] == currentColor) {
+            colorToSave = i
+        }
+    }
+    let fontSize = document.getElementById('editor').style.fontSize;
+    console.log(fontSize.split('px')[0]);
+
+    fetch('/saveUserEditorSettings', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            editorFont: parseInt(fontSize.split('px')[0]),
+            editorColor: colorToSave
+        })
+    }).then(response => response.text())
+        .then(
+            data => {
+                console.log(data)
+            }
+        )
+}

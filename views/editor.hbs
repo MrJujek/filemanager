@@ -12,8 +12,8 @@
     <div class="changeColor" onclick="changeColor()">
         Change color
     </div>
-    <div class="saveChanges" onclick="">
-        Save changes
+    <div class="saveSettings" onclick="savesettings()">
+        Save settings
     </div>
     <div class="renameFile" onclick="renameFile()">
         Rename file
@@ -46,4 +46,11 @@
     <div class="saveFile" onclick="saveFile()">
         Save file
     </div>
+
+    <script>
+        let editorColor = {{ editorColor }}
+        let editorFont = {{ editorFont }}
+
+        setColorAndFont(editorColor, editorFont);
+    </script>
 </div>

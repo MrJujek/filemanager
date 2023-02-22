@@ -37,7 +37,7 @@
 
 .saveFile,
 .changeColor,
-.saveChanges,
+.saveSettings,
 .renameFile {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -63,7 +63,7 @@
 
 .saveFile:hover,
 .changeColor:hover,
-.saveChanges:hover,
+.saveSettings:hover,
 .renameFile:hover {
   color: #ffffff;
   text-shadow: 1px 1px 1px blue;
@@ -72,7 +72,7 @@
 
 .saveFile:hover a:visited,
 .changeColor:hover a:visited,
-.saveChanges:hover a:visited,
+.saveSettings:hover a:visited,
 .renameFile:hover a:visited {
   color: #ffffff;
 }
