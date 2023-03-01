@@ -411,6 +411,36 @@ app.post('/signup', function (req, res) {
     })
 })
 
+app.post('/zipFiles', function (req, res) {
+    console.log("files_to_zip: ", req.body.files_to_zip);
+    console.log("file_path: ", req.body.file_path);
+
+    if (req.body.files_to_zip.length < 1) {
+        res.end("No files to zip")
+        return
+    }
+
+    let zip = new AdmZip();
+    for (let i = 0; i < req.body.files_to_zip.length; i++) {
+        if (fs.lstatSync("." + req.body.file_path + "/" + req.body.files_to_zip[i]).isDirectory()) {
+            console.log("folder: ", "." + req.body.file_path + "/" + req.body.files_to_zip[i]);
+
+            zip.addLocalFolder("." + req.body.file_path + "/" + req.body.files_to_zip[i], req.body.files_to_zip[i])
+        } else {
+            console.log("plik: ", "." + req.body.file_path + "/" + req.body.files_to_zip[i]);
+
+            zip.addLocalFile("." + req.body.file_path + "/" + req.body.files_to_zip[i])
+        }
+    }
+
+    let time = new Date().getTime();
+    let zipName = time + ".zip"
+
+    zip.writeZip(path.join("/home/ubuntu/Desktop/filemanager", req.body.file_path, zipName));
+
+    res.end("Files zipped")
+})
+
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',
     'avi.png', 'bmp.png', 'cad.png',

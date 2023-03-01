@@ -1,3 +1,4 @@
+<script src="/scripts/zipFiles.js"></script>
 <div class="leftPanel">
     Filemanager
     <div class="buttonNewFolder" onclick="createNewFolder()">
@@ -9,7 +10,7 @@
     <div class="downloadZip" onclick="downloadZip()">
         Download ZIP
     </div>
-    
+
     {{#each filePath}}
 
     {{#if @first}}
@@ -40,7 +41,11 @@
         {{#if @first}}
         <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
         {{else}}
+        {{#if @last}}
+        <a class="filePath" href="/files{{path}}" id="file_path">{{ name }}</a>
+        {{else}}
         <a class="filePath" href="/files{{path}}">{{ name }}</a>
+        {{/if}}
         {{/if}}
 
         {{/each}}
