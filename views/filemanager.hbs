@@ -6,6 +6,10 @@
     <div class="createNewFile" onclick="createNewFile()">
         Create new file
     </div>
+    <div class="downloadZip" onclick="downloadZip()">
+        Download ZIP
+    </div>
+    
     {{#each filePath}}
 
     {{#if @first}}
@@ -50,6 +54,7 @@
         {{#each directories}}
         <div class="element">
             <div class="imgX">
+                <input type="checkbox" name="checked" id="{{name}}">
                 <img src="/icons/{{obraz}}" alt="{{name}}">
                 <form method="POST" action="/deleteFolder?name={{name}}">
                     <button type="submit"><img src="/icons/close.png" alt="X"></button>
@@ -68,6 +73,7 @@
         {{#each files}}
         <div class="element">
             <div class="imgX">
+                <input type="checkbox" name="checked" id="{{name}}">
                 <img src="/icons/{{obraz}}" alt="{{name}}">
                 <form method="POST" action="/deleteFile?name={{name}}">
                     <button type="submit"><img src="/icons/close.png" alt="X"></button>

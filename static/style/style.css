@@ -398,18 +398,6 @@ label[for="editor"] {
   cursor: pointer;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-}
-
-.filetype {
-  height: 50px;
-  width: 50px;
-}
-
 .topPanel {
   width: 100vw;
   height: 80px;
@@ -428,18 +416,29 @@ label[for="editor"] {
   background: none;
   border: none;
   outline: none;
-  margin-left: 40px;
-  font-size: 32px;
+  margin-left: 20px;
+  font-size: 28px;
   text-decoration: none;
   font-family: "Bungee", Arial;
   color: aliceblue;
   text-shadow: 2px 2px 2px #000000;
-  padding: 10px;
 }
 
 .topPanel input[type="submit"]:hover {
   cursor: pointer;
   color: orange;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.filetype {
+  height: 50px;
+  width: 50px;
 }
 
 .bottomPanel {
@@ -501,7 +500,7 @@ label[for="editor"] {
 
 .leftPanel input[type="file"] {
   width: 200px;
-  height: 180px;
+  height: 280px;
   position: absolute;
   opacity: 0;
 }
@@ -551,6 +550,7 @@ label[for="editor"] {
   width: 100%;
 }
 
+.downloadZip,
 .renameFolder,
 .createNewFile,
 .buttonNewFolder {
@@ -568,18 +568,21 @@ label[for="editor"] {
   width: 200px;
 }
 
+.downloadZip a,
 .renameFolder a,
 .createNewFile a,
 .buttonNewFolder a {
   text-decoration: none;
 }
 
+.downloadZip a:visited,
 .renameFolder a:visited,
 .createNewFile a:visited,
 .buttonNewFolder a:visited {
   color: blue;
 }
 
+.downloadZip:hover,
 .renameFolder:hover,
 .createNewFile:hover,
 .buttonNewFolder:hover {
@@ -588,6 +591,7 @@ label[for="editor"] {
   cursor: pointer;
 }
 
+.downloadZip:hover a,
 .renameFolder:hover a,
 .createNewFile:hover a,
 .buttonNewFolder:hover a {
@@ -673,7 +677,7 @@ label[for="editor"] {
       -ms-flex-pack: center;
           justify-content: center;
   height: 90px;
-  min-width: 100px;
+  min-width: 110px;
   max-width: -webkit-fit-content;
   max-width: -moz-fit-content;
   max-width: fit-content;
@@ -699,9 +703,20 @@ label[for="editor"] {
   width: 100%;
 }
 
+.row .element .imgX input[type="checkbox"] {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 20px;
+  width: 20px;
+  margin: 5px;
+  background-color: blueviolet;
+}
+
 .row .element .imgX img {
   height: 50px;
   width: 50px;
+  margin: 0px 5px;
 }
 
 .row .element .imgX button {

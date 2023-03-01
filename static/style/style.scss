@@ -3,6 +3,7 @@
 @import 'modules/editor';
 @import 'modules/signin';
 @import 'modules/signup';
+@import 'modules/topPanel';
 
 * {
     margin: 0;
@@ -13,33 +14,6 @@
 .filetype {
     height: 50px;
     width: 50px;
-}
-
-.topPanel {
-    width: 100vw;
-    height: 80px;
-    background: rgb(66, 34, 195);
-    background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
-    display: flex;
-    align-items: center;
-
-    input[type="submit"] {
-        background: none;
-        border: none;
-        outline: none;
-        margin-left: 40px;
-        font-size: 32px;
-        text-decoration: none;
-        font-family: "Bungee", Arial;
-        color: aliceblue;
-        text-shadow: 2px 2px 2px #000000;
-        padding: 10px;
-    }
-
-    input[type="submit"]:hover {
-        cursor: pointer;
-        color: orange;
-    }
 }
 
 .bottomPanel {
@@ -85,7 +59,7 @@
 
     input[type="file"] {
         width: 200px;
-        height: 180px;
+        height: 280px;
         position: absolute;
         opacity: 0;
     }
@@ -127,6 +101,7 @@
     width: 100%;
 }
 
+.downloadZip,
 .renameFolder,
 .createNewFile,
 .buttonNewFolder {
@@ -220,7 +195,7 @@
         align-items: center;
         justify-content: center;
         height: 90px;
-        min-width: 100px;
+        min-width: 110px;
         max-width: fit-content;
         border: 1px solid darkorange;
         background-color: orange;
@@ -235,9 +210,20 @@
             justify-content: center;
             width: 100%;
 
+            input[type="checkbox"] {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                height: 20px;
+                width: 20px;
+                margin: 5px;
+                background-color: blueviolet;
+            }
+
             img {
                 height: 50px;
                 width: 50px;
+                margin: 0px 5px;
             }
 
             button {

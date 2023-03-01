@@ -373,7 +373,7 @@ app.post('/signin', function (req, res) {
 
     for (let i = 0; i < users.users.length; i++) {
         if (req.body.login == users.users[i].login && req.body.password == users.users[i].password) {
-            res.cookie("user", JSON.stringify({ login: users.users[i].login, editorColor: users.users[i].editorColor, editorFont: users.users[i].editorFont }), { httpOnly: true, maxAge: 30 * 1000 });
+            res.cookie("user", JSON.stringify({ login: users.users[i].login, editorColor: users.users[i].editorColor, editorFont: users.users[i].editorFont }), { httpOnly: true, maxAge: 20 * 60 * 1000 });
 
             res.end("Success")
             return

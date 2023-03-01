@@ -26,8 +26,9 @@ function signup() {
         .then(response => response.text())
         .then(data => {
             console.log(data);
-            if (data == "Zarejestrowano") {
-                //window.location.href = "/";
+            if (data == "Success") {
+                alert(data);
+                window.location.href = "/signin";
             } else {
                 document.getElementById("password").value = "";
                 document.getElementById("repeatpassword").value = "";

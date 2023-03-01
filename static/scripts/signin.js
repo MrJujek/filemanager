@@ -20,11 +20,11 @@ function signin() {
         .then(response => response.text())
         .then(data => {
             console.log(data);
-            if (data == "Zalogowano") {
+            if (data == "Success") {
+                //alert(data);
                 window.location.href = "/";
             } else {
                 document.getElementById("password").value = "";
-                alert(data);
             }
         }
         );

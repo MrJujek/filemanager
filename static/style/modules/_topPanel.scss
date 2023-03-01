@@ -1,0 +1,25 @@
+.topPanel {
+    width: 100vw;
+    height: 80px;
+    background: rgb(66, 34, 195);
+    background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
+    display: flex;
+    align-items: center;
+
+    input[type="submit"] {
+        background: none;
+        border: none;
+        outline: none;
+        margin-left: 20px;
+        font-size: 28px;
+        text-decoration: none;
+        font-family: "Bungee", Arial;
+        color: aliceblue;
+        text-shadow: 2px 2px 2px #000000;
+    }
+
+    input[type="submit"]:hover {
+        cursor: pointer;
+        color: orange;
+    }
+}
