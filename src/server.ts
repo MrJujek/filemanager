@@ -260,9 +260,16 @@ app.post('/show/*', function (req, res) {
     if (fileToEdit.includes(url.split(".")[url.split(".").length - 1])) {
         res.redirect("/editor" + url.slice(5))
     } else {
-        res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(5)))
+        res.redirect("/showFile" + url.slice(5))
     }
 });
+
+app.get('/showFile/*', function (req, res) {
+    let url = decodeURI(req.url)
+    console.log("/show url: ", url);
+
+    res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(9)))
+})
 
 app.get('/editor/*', function (req, res) {
     if (!req.cookies.user) {
