@@ -28,7 +28,15 @@
         <div class="renameFile" onclick="renameFile()">
             Rename file
         </div>
+        {{#if run}}
 
+        {{#each filePath}}
+        {{#if @last}}
+        <a class="runFile" href="/runFile{{path}}" id="file_path">Run file</a>
+        {{/if}}
+        {{/each}}
+
+        {{/if}}
     </div>
     <div class="rightPanel">
         <div class="filePathDiv">

@@ -29,6 +29,7 @@
     font-size: 18px !important;
 }
 
+.runFile,
 .saveFile,
 .changeColor,
 .saveSettings,
@@ -57,6 +58,10 @@
             color: #ffffff;
         }
     }
+}
+
+.runFile {
+    margin: auto 0px 10px;
 }
 
 .saveFile {

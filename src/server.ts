@@ -45,6 +45,7 @@ interface EditorData {
     text: string
     editorColor: number
     editorFont: number
+    run: boolean
 }
 
 let context: ContextInterface = {
@@ -278,6 +279,9 @@ app.get('/editor/*', function (req, res) {
         let url = decodeURI(req.url)
         let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
 
+        console.log("url: ", url.split(".")[url.split(".").length - 1]);
+
+
         let filePath = path.join(url_path);
 
         let cookie = JSON.parse(req.cookies["user"])
@@ -286,7 +290,8 @@ app.get('/editor/*', function (req, res) {
             filePath: [],
             text: "",
             editorColor: cookie.editorColor,
-            editorFont: cookie.editorFont
+            editorFont: cookie.editorFont,
+            run: false
         }
 
         for (let i = 0; i < filePath.split("/").length; i++) {
@@ -302,6 +307,10 @@ app.get('/editor/*', function (req, res) {
             editorData.filePath = [editorData.filePath[0]]
         }
 
+        if (url.split(".")[url.split(".").length - 1] == "html") {
+            editorData.run = true
+        }
+
         fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
             if (err) console.error(err);
 
@@ -310,6 +319,13 @@ app.get('/editor/*', function (req, res) {
             res.render('editor.hbs', editorData);
         });
     }
+})
+
+app.get('/runFile/*', function (req, res) {
+    let url = decodeURI(req.url)
+    console.log("/show url: ", url);
+
+    res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(8)))
 })
 
 app.post('/saveFile', function (req, res) {
