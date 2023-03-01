@@ -84,6 +84,11 @@
     "mime-types" "~2.1.34"
     "negotiator" "0.6.3"
 
+"adm-zip@^0.5.10":
+  "integrity" "sha512-x0HvcHqVJNTPk/Bw8JbLWlWoo6Wwnsug0fnYYro1HBrjxZ3G7/AZk7Ahv8JwDe1uIcz8eBqvu86FuF1POiG7vQ=="
+  "resolved" "https://registry.npmjs.org/adm-zip/-/adm-zip-0.5.10.tgz"
+  "version" "0.5.10"
+
 "ansi-regex@^5.0.1":
   "integrity" "sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ=="
   "resolved" "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz"
