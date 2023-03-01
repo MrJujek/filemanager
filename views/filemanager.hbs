@@ -1,94 +1,105 @@
 <script src="/scripts/zipFiles.js"></script>
-<div class="leftPanel">
-    Filemanager
-    <div class="buttonNewFolder" onclick="createNewFolder()">
-        Create new folder
-    </div>
-    <div class="createNewFile" onclick="createNewFile()">
-        Create new file
-    </div>
-    <div class="downloadZip" onclick="downloadZip()">
-        Download ZIP
-    </div>
-
-    {{#each filePath}}
-
-    {{#if @first}}
-
-    {{else}}
-    <div class="renameFolder" onclick="renameFolder()">
-        Rename folder
-    </div>
-    {{/if}}
-
-    {{/each}}
-
-    <script src="/scripts/deleteUselessRename.js"></script>
-
-    <div class="uploadFiles">
-        <form action="/upload" method="post" enctype="multipart/form-data">
-            <img src="/icons/direct-download.png" alt="Select files">
-            <label for="filestoupload">Choose or drag files</label>
-            <input type="file" multiple required accept="*" name="filestoupload" id="filestoupload">
-            <input type="submit" value="Upload">
-        </form>
-    </div>
+<div class="topPanel">
+    <form action="/" method="GET">
+        <input class="filemanager" type="submit" value="FILEMANAGER">
+    </form>
+    <form action="/logout" method="post">
+        <button class="logout" type="submit"><img src="/icons/logout.png" alt="logout"
+                class="img-logout">LOGOUT</button>
+    </form>
 </div>
-<div class="rightPanel">
-    <div class="filePathDiv">
+<div class="bottomPanel">
+    <div class="leftPanel">
+        Filemanager
+        <div class="buttonNewFolder" onclick="createNewFolder()">
+            Create new folder
+        </div>
+        <div class="createNewFile" onclick="createNewFile()">
+            Create new file
+        </div>
+        <div class="downloadZip" onclick="downloadZip()">
+            Download ZIP
+        </div>
+
         {{#each filePath}}
 
         {{#if @first}}
-        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
+
         {{else}}
-        {{#if @last}}
-        <a class="filePath" href="/files{{path}}" id="file_path">{{ name }}</a>
-        {{else}}
-        <a class="filePath" href="/files{{path}}">{{ name }}</a>
-        {{/if}}
-        {{/if}}
-
-        {{/each}}
-    </div>
-
-    {{#if directories}}
-    <span class=" rowInfo">Folders:</span>
-    {{/if}}
-
-    <div class="row">
-        {{#each directories}}
-        <div class="element">
-            <div class="imgX">
-                <input type="checkbox" name="checked" id="{{name}}">
-                <img src="/icons/{{obraz}}" alt="{{name}}">
-                <form method="POST" action="/deleteFolder?name={{name}}">
-                    <button type="submit"><img src="/icons/close.png" alt="X"></button>
-                </form>
-            </div>
-            <a class="fileLink" href="/files{{path}}">{{name}}</a>
+        <div class="renameFolder" onclick="renameFolder()">
+            Rename folder
         </div>
+        {{/if}}
+
         {{/each}}
-    </div>
 
-    {{#if files}}
-    <span class="rowInfo">Files:</span>
-    {{/if}}
+        <script src="/scripts/deleteUselessRename.js"></script>
 
-    <div class="row">
-        {{#each files}}
-        <div class="element">
-            <div class="imgX">
-                <input type="checkbox" name="checked" id="{{name}}">
-                <img src="/icons/{{obraz}}" alt="{{name}}">
-                <form method="POST" action="/deleteFile?name={{name}}">
-                    <button type="submit"><img src="/icons/close.png" alt="X"></button>
-                </form>
-            </div>
-            <form method="POST" action="/show{{path}}">
-                <button class="fileLink" type="submit">{{name}}</button>
+        <div class="uploadFiles">
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <img src="/icons/direct-download.png" alt="Select files">
+                <label for="filestoupload">Choose or drag files</label>
+                <input type="file" multiple required accept="*" name="filestoupload" id="filestoupload">
+                <input type="submit" value="Upload">
             </form>
         </div>
-        {{/each}}
     </div>
+    <div class="rightPanel">
+        <div class="filePathDiv">
+            {{#each filePath}}
 
+            {{#if @first}}
+            <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
+            {{else}}
+            {{#if @last}}
+            <a class="filePath" href="/files{{path}}" id="file_path">{{ name }}</a>
+            {{else}}
+            <a class="filePath" href="/files{{path}}">{{ name }}</a>
+            {{/if}}
+            {{/if}}
+
+            {{/each}}
+        </div>
+
+        {{#if directories}}
+        <span class=" rowInfo">Folders:</span>
+        {{/if}}
+
+        <div class="row">
+            {{#each directories}}
+            <div class="element">
+                <div class="imgX">
+                    <input type="checkbox" name="checked" id="{{name}}">
+                    <img src="/icons/{{obraz}}" alt="{{name}}">
+                    <form method="POST" action="/deleteFolder?name={{name}}">
+                        <button type="submit"><img src="/icons/close.png" alt="X"></button>
+                    </form>
+                </div>
+                <a class="fileLink" href="/files{{path}}">{{name}}</a>
+            </div>
+            {{/each}}
+        </div>
+
+        {{#if files}}
+        <span class="rowInfo">Files:</span>
+        {{/if}}
+
+        <div class="row">
+            {{#each files}}
+            <div class="element">
+                <div class="imgX">
+                    <input type="checkbox" name="checked" id="{{name}}">
+                    <img src="/icons/{{obraz}}" alt="{{name}}">
+                    <form method="POST" action="/deleteFile?name={{name}}">
+                        <button type="submit"><img src="/icons/close.png" alt="X"></button>
+                    </form>
+                </div>
+                <form method="POST" action="/show{{path}}">
+                    <button class="fileLink" type="submit">{{name}}</button>
+                </form>
+            </div>
+            {{/each}}
+        </div>
+
+    </div>
 </div>

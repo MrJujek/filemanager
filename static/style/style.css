@@ -410,14 +410,16 @@ label[for="editor"] {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .topPanel input[type="submit"] {
   background: none;
   border: none;
   outline: none;
-  margin-left: 20px;
-  font-size: 28px;
+  margin: 0px 20px;
   text-decoration: none;
   font-family: "Bungee", Arial;
   color: aliceblue;
@@ -427,6 +429,46 @@ label[for="editor"] {
 .topPanel input[type="submit"]:hover {
   cursor: pointer;
   color: orange;
+}
+
+.topPanel .filemanager {
+  font-size: 28px;
+}
+
+.topPanel .logout {
+  font-size: 18px;
+  background: none;
+  border: none;
+  outline: none;
+  margin: 0px 20px -10px 20px;
+  text-decoration: none;
+  font-family: "Bungee", Arial;
+  color: aliceblue;
+  text-shadow: 2px 2px 2px #000000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.topPanel .logout:hover {
+  cursor: pointer;
+  color: orange;
+}
+
+.topPanel .img-logout {
+  height: 30px;
+  width: 30px;
+  margin-bottom: -10px;
 }
 
 * {

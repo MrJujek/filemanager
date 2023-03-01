@@ -5,21 +5,52 @@
     background: linear-gradient(90deg, rgba(66, 34, 195, 1) 0%, rgba(128, 45, 253, 1) 100%);
     display: flex;
     align-items: center;
+    justify-content: space-between;
 
     input[type="submit"] {
         background: none;
         border: none;
         outline: none;
-        margin-left: 20px;
-        font-size: 28px;
+        margin: 0px 20px;
         text-decoration: none;
         font-family: "Bungee", Arial;
         color: aliceblue;
         text-shadow: 2px 2px 2px #000000;
+
+        &:hover {
+            cursor: pointer;
+            color: orange;
+        }
     }
 
-    input[type="submit"]:hover {
-        cursor: pointer;
-        color: orange;
+    .filemanager {
+        font-size: 28px;
+    }
+
+    .logout {
+        font-size: 18px;
+        background: none;
+        border: none;
+        outline: none;
+        margin: 0px 20px -10px 20px;
+        text-decoration: none;
+        font-family: "Bungee", Arial;
+        color: aliceblue;
+        text-shadow: 2px 2px 2px #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            cursor: pointer;
+            color: orange;
+        }
+    }
+
+    .img-logout {
+        height: 30px;
+        width: 30px;
+        margin-bottom: -10px;
     }
 }

@@ -441,6 +441,11 @@ app.post('/zipFiles', function (req, res) {
     res.end("Files zipped")
 })
 
+app.post('/logout', function (req, res) {
+    res.clearCookie("user")
+    res.redirect("/")
+})
+
 const fileIcons = [
     '3ds.png', 'aac.png', 'ai.png',
     'avi.png', 'bmp.png', 'cad.png',

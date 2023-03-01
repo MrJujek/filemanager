@@ -1,56 +1,67 @@
-<div class="leftPanel">
-    File editor
-
-    <div class="divForFontChangingButtons">
-        <div class="fontChangingButton" onclick="fontplus()">
-            Font +
-        </div>
-        <div class="fontChangingButton" onclick="fontminus()">
-            Font -
-        </div>
-    </div>
-    <div class="changeColor" onclick="changeColor()">
-        Change color
-    </div>
-    <div class="saveSettings" onclick="savesettings()">
-        Save settings
-    </div>
-    <div class="renameFile" onclick="renameFile()">
-        Rename file
-    </div>
-
+<div class="topPanel">
+    <form action="/" method="GET">
+        <input class="filemanager" type="submit" value="FILEMANAGER">
+    </form>
+    <form action="/logout" method="post">
+        <button class="logout" type="submit"><img src="/icons/logout.png" alt="logout"
+                class="img-logout">LOGOUT</button>
+    </form>
 </div>
-<div class="rightPanel">
-    <div class="filePathDiv">
-        {{#each filePath}}
+<div class="bottomPanel">
+    <div class="leftPanel">
+        File editor
 
-        {{#if @first}}
-        <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
-        {{else}}
-        {{#if @last}}
-        <a class="filePath" href="/editor{{path}}" id="file_path">{{ name }}</a>
-        {{else}}
-        <a class="filePath" href="/files{{path}}">{{ name }}</a>
-        {{/if}}
-        {{/if}}
+        <div class="divForFontChangingButtons">
+            <div class="fontChangingButton" onclick="fontplus()">
+                Font +
+            </div>
+            <div class="fontChangingButton" onclick="fontminus()">
+                Font -
+            </div>
+        </div>
+        <div class="changeColor" onclick="changeColor()">
+            Change color
+        </div>
+        <div class="saveSettings" onclick="savesettings()">
+            Save settings
+        </div>
+        <div class="renameFile" onclick="renameFile()">
+            Rename file
+        </div>
 
-        {{/each}}
     </div>
-    <label for="editor">Editor:</label>
-    <div class="divForTextarea">
-        <textarea name="linesNumbers" id="linesNumbers" class="linesNumbers" readonly spellcheck="false" wrap="hard"
-            autocapitalize="off" autocorrect="off"></textarea>
-        <textarea name="editor" id="editor" class="editor" rows="10">{{text}}</textarea>
-    </div>
-    <script src="/scripts/textarea.js"></script>
-    <div class="saveFile" onclick="saveFile()">
-        Save file
-    </div>
+    <div class="rightPanel">
+        <div class="filePathDiv">
+            {{#each filePath}}
 
-    <script>
-        let editorColor = {{ editorColor }}
-        let editorFont = {{ editorFont }}
+            {{#if @first}}
+            <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
+            {{else}}
+            {{#if @last}}
+            <a class="filePath" href="/editor{{path}}" id="file_path">{{ name }}</a>
+            {{else}}
+            <a class="filePath" href="/files{{path}}">{{ name }}</a>
+            {{/if}}
+            {{/if}}
 
-        setColorAndFont(editorColor, editorFont);
-    </script>
+            {{/each}}
+        </div>
+        <label for="editor">Editor:</label>
+        <div class="divForTextarea">
+            <textarea name="linesNumbers" id="linesNumbers" class="linesNumbers" readonly spellcheck="false" wrap="hard"
+                autocapitalize="off" autocorrect="off"></textarea>
+            <textarea name="editor" id="editor" class="editor" rows="10">{{text}}</textarea>
+        </div>
+        <script src="/scripts/textarea.js"></script>
+        <div class="saveFile" onclick="saveFile()">
+            Save file
+        </div>
+
+        <script>
+            let editorColor = {{ editorColor }}
+            let editorFont = {{ editorFont }}
+
+            setColorAndFont(editorColor, editorFont);
+        </script>
+    </div>
 </div>
