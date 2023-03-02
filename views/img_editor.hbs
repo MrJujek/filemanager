@@ -15,6 +15,32 @@
             Rename file
         </div>
 
+        <div class="filtersButton" onclick="slideFilters()">
+            Filters
+        </div>
+
+        <div class="filters">
+            <div class="filter" onclick="filter('grayscale')">
+                <span>Grayscale</span>
+                <canvas id="grayscale" width="100" height="100"></canvas>
+            </div>
+
+            <div class="filter" onclick="filter('invert')">
+                <span>Invert</span>
+                <canvas id="invert" width="100" height="100"></canvas>
+            </div>
+
+            <div class="filter" onclick="filter('sepia')">
+                <span>Sepia</span>
+                <canvas id="sepia" width="100" height="100"></canvas>
+            </div>
+
+            <div class="filter" onclick="filter('clear')">
+                <span>Clear filters</span>
+                <canvas id="none" width="100" height="100"></canvas>
+            </div>
+        </div>
+
         <a href="/showFile/{{imgPath}}" class="showImage">Show image</a>
     </div>
     <div class="rightPanel">
@@ -39,6 +65,13 @@
         </div>
 
         <script src="/scripts/imgeditor.js"></script>
+        <script>
+            let imgPath = "{{ imgPath }}";
+
+            drawImage(imgPath);
+            drawFilters();
+        </script>
+
         <div class="saveImage" onclick="saveImage()">
             Save image
         </div>

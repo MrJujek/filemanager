@@ -1,5 +1,7 @@
-.saveImage {
-    margin: auto;
+.saveImage,
+.showImage,
+.filtersButton {
+    margin: 10px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -25,31 +27,12 @@
     }
 }
 
+.saveImage {
+    margin: auto;
+}
+
 .showImage {
     margin: auto auto 10px auto;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    font-size: 16px;
-    text-decoration: none;
-    border: 1px solid darkorange;
-    background-color: orange;
-    border-radius: 5px;
-    color: blue;
-    font-family: "Bungee", Arial;
-    text-shadow: 1px 1px 1px #ffffff;
-    width: 200px;
-
-    &:hover {
-        color: #ffffff;
-        text-shadow: 1px 1px 1px blue;
-        cursor: pointer;
-
-        a:visited {
-            color: #ffffff;
-        }
-    }
 }
 
 .divForCanvas {
@@ -62,14 +45,5 @@
     background-color: #282a3a;
     border-radius: 5px;
 
-    #canvas {
-        border: 1px solid black;
-        height: 100%;
-        width: 100%;
-        border: none;
-        background-color: #282a3a;
-        color: #ffffff;
-        outline: none;
-        resize: none;
-    }
+    //#canvas {}
 }

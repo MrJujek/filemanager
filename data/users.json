@@ -1,10 +1,1 @@
-{
-    "users": [
-        {
-            "login": "julo",
-            "password": "julo",
-            "editorColor": 3,
-            "editorFont": 17
-        }
-    ]
-}
+{"users":[{"login":"julo","password":"julo","editorColor":3,"editorFont":17},{"login":"asd","password":"asd","editorColor":1,"editorFont":18}]}
