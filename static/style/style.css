@@ -478,6 +478,99 @@ label[for="editor"] {
   margin-bottom: -10px;
 }
 
+.saveImage {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+  width: 200px;
+}
+
+.saveImage:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.saveImage:hover a:visited {
+  color: #ffffff;
+}
+
+.showImage {
+  margin: auto auto 10px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid darkorange;
+  background-color: orange;
+  border-radius: 5px;
+  color: blue;
+  font-family: "Bungee", Arial;
+  text-shadow: 1px 1px 1px #ffffff;
+  width: 200px;
+}
+
+.showImage:hover {
+  color: #ffffff;
+  text-shadow: 1px 1px 1px blue;
+  cursor: pointer;
+}
+
+.showImage:hover a:visited {
+  color: #ffffff;
+}
+
+.divForCanvas {
+  margin: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: calc(100% - 150px);
+  padding: 5px;
+  width: calc(100% - 20px);
+  background-color: #282a3a;
+  border-radius: 5px;
+}
+
+.divForCanvas #canvas {
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
+  border: none;
+  background-color: #282a3a;
+  color: #ffffff;
+  outline: none;
+  resize: none;
+}
+
 * {
   margin: 0;
   padding: 0;

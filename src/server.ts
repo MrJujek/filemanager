@@ -40,12 +40,17 @@ interface PathLinks {
     name: string
     path: string
 }
-interface EditorData {
+interface TextEditorData {
     filePath: PathLinks[]
     text: string
     editorColor: number
     editorFont: number
     run: boolean
+}
+
+interface ImgEditorData {
+    filePath: PathLinks[]
+    imgPath: string
 }
 
 let context: ContextInterface = {
@@ -57,7 +62,8 @@ let context: ContextInterface = {
 let allFiles: string[]
 let folderPath: string
 
-const fileToEdit = ["txt", "css", "html", "js", "ts", "json"]
+const textFilesToEdit = ["txt", "css", "html", "js", "ts", "json"]
+const imgFilesToEdit = ["png", "jpg", "jpeg", "bmp", "ico"]
 
 app.get("/", function (req, res) {
     if (req.cookies.user) {
@@ -258,8 +264,10 @@ app.post('/show/*', function (req, res) {
     let url = decodeURI(req.url)
     // console.log("/show url: ", url);
 
-    if (fileToEdit.includes(url.split(".")[url.split(".").length - 1])) {
-        res.redirect("/editor" + url.slice(5))
+    if (textFilesToEdit.includes(url.split(".")[url.split(".").length - 1])) {
+        res.redirect("/textEditor" + url.slice(5))
+    } else if (imgFilesToEdit.includes(url.split(".")[url.split(".").length - 1])) {
+        res.redirect("/imgEditor" + url.slice(5))
     } else {
         res.redirect("/showFile" + url.slice(5))
     }
@@ -272,7 +280,7 @@ app.get('/showFile/*', function (req, res) {
     res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(9)))
 })
 
-app.get('/editor/*', function (req, res) {
+app.get('/textEditor/*', function (req, res) {
     if (!req.cookies.user) {
         res.redirect("/signin")
     } else {
@@ -286,7 +294,7 @@ app.get('/editor/*', function (req, res) {
 
         let cookie = JSON.parse(req.cookies["user"])
 
-        let editorData: EditorData = {
+        let textEditorData: TextEditorData = {
             filePath: [],
             text: "",
             editorColor: cookie.editorColor,
@@ -301,29 +309,59 @@ app.get('/editor/*', function (req, res) {
             for (let j = 1; j <= i; j++) {
                 toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
             }
-            editorData.filePath.push(toPush)
+            textEditorData.filePath.push(toPush)
         }
-        if (editorData.filePath[0].path == editorData.filePath[1].path) {
-            editorData.filePath = [editorData.filePath[0]]
+        if (textEditorData.filePath[0].path == textEditorData.filePath[1].path) {
+            textEditorData.filePath = [textEditorData.filePath[0]]
         }
 
         if (url.split(".")[url.split(".").length - 1] == "html") {
-            editorData.run = true
+            textEditorData.run = true
         }
 
-        fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(7)), 'utf8', (err, data) => {
+        fs.readFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(11)), 'utf8', (err, data) => {
             if (err) console.error(err);
 
-            editorData.text = data;
+            textEditorData.text = data;
 
-            res.render('editor.hbs', editorData);
+            res.render('text_editor.hbs', textEditorData);
         });
+    }
+})
+
+app.get('/imgEditor/*', function (req, res) {
+    if (!req.cookies.user) {
+        res.redirect("/signin")
+    } else {
+        let url = decodeURI(req.url)
+        let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
+        let filePath = path.join(url_path);
+
+        let imgEditorData: ImgEditorData = {
+            filePath: [],
+            imgPath: url.split("/").slice(2, url.split("/").length).join("/")
+        }
+
+        for (let i = 0; i < filePath.split("/").length; i++) {
+            let toPush = { name: "", path: "/" }
+            toPush.name = "/" + filePath.split("/")[i]
+
+            for (let j = 1; j <= i; j++) {
+                toPush.path = path.join("/", toPush.path, filePath.split("/")[j])
+            }
+            imgEditorData.filePath.push(toPush)
+        }
+
+        if (imgEditorData.filePath[0].path == imgEditorData.filePath[1].path) {
+            imgEditorData.filePath = [imgEditorData.filePath[0]]
+        }
+
+        res.render('img_editor.hbs', imgEditorData);
     }
 })
 
 app.get('/runFile/*', function (req, res) {
     let url = decodeURI(req.url)
-    console.log("/show url: ", url);
 
     res.sendFile(path.join("/home/ubuntu/Desktop/filemanager/files", url.slice(8)))
 })
@@ -354,7 +392,28 @@ app.post('/renameFile', function (req, res) {
         fs.rename("./files/" + filepath, "./files/" + newPath, (err) => {
             if (err) console.log(err)
             else {
-                res.end(path.join("editor", newPath))
+                res.end(path.join("texteditor", newPath))
+            }
+        })
+    }
+});
+
+app.post('/renameImage', function (req, res) {
+    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length).join("/")
+    let newName = req.body.newName
+
+    console.log("filepath: ", filepath);
+    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[1]
+    console.log("newPath: ", newPath);
+
+
+    if (fs.existsSync("./files/" + filepath)) {
+        console.log("zmiana nazwy");
+
+        fs.rename("./files/" + filepath, "./files/" + newPath, (err) => {
+            if (err) console.log(err)
+            else {
+                res.end(path.join("imgeditor", newPath))
             }
         })
     }
@@ -486,6 +545,7 @@ const fileIcons = [
     'unknown.png', 'wmv.png', 'xls.png',
     'xml.png', 'zip.png'
 ]
+
 function getIcon(file: string) {
     let splitted = file.split(".")
     let obraz = "unknown.png"

@@ -46,7 +46,7 @@
             <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
             {{else}}
             {{#if @last}}
-            <a class="filePath" href="/editor{{path}}" id="file_path">{{ name }}</a>
+            <a class="filePath" href="/textEditor{{path}}" id="file_path">{{ name }}</a>
             {{else}}
             <a class="filePath" href="/files{{path}}">{{ name }}</a>
             {{/if}}
@@ -60,7 +60,7 @@
                 autocapitalize="off" autocorrect="off"></textarea>
             <textarea name="editor" id="editor" class="editor" rows="10">{{text}}</textarea>
         </div>
-        <script src="/scripts/textarea.js"></script>
+        <script src="/scripts/texteditor.js"></script>
         <div class="saveFile" onclick="saveFile()">
             Save file
         </div>

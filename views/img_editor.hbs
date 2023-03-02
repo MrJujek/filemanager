@@ -1,0 +1,46 @@
+<div class="topPanel">
+    <form action="/" method="GET">
+        <input class="filemanager" type="submit" value="FILEMANAGER">
+    </form>
+    <form action="/logout" method="post">
+        <button class="logout" type="submit"><img src="/icons/logout.png" alt="logout"
+                class="img-logout">LOGOUT</button>
+    </form>
+</div>
+<div class="bottomPanel">
+    <div class="leftPanel">
+        Image editor
+
+        <div class="renameFile" onclick="renameFile()">
+            Rename file
+        </div>
+
+        <a href="/showFile/{{imgPath}}" class="showImage">Show image</a>
+    </div>
+    <div class="rightPanel">
+        <div class="filePathDiv">
+            {{#each filePath}}
+
+            {{#if @first}}
+            <a class="filePath" href="/files{{path}}"><img src="/icons/home.png" alt="home" class="homeIcon"></a>
+            {{else}}
+            {{#if @last}}
+            <a class="filePath" href="/imgEditor{{path}}" id="file_path">{{ name }}</a>
+            {{else}}
+            <a class="filePath" href="/files{{path}}">{{ name }}</a>
+            {{/if}}
+            {{/if}}
+
+            {{/each}}
+        </div>
+
+        <div class="divForCanvas">
+            <canvas id="canvas" id="canvas"></canvas>
+        </div>
+
+        <script src="/scripts/imgeditor.js"></script>
+        <div class="saveImage" onclick="saveImage()">
+            Save image
+        </div>
+    </div>
+</div>
