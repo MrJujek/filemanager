@@ -1,20 +1,21 @@
-function saveFile() {
-    console.log('Saving file...');
-    fetch('/saveFile', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            text: document.getElementById('editor').value,
-            file_path: document.getElementById('file_path').getAttribute("href")
-        })
-    }).then(response => response.text())
-        .then(
-            data => {
-                console.log(data)
-            }
-        )
+function saveImage() {
+    console.log('Saving image...');
+    console.log(document.getElementById("canvas").toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    // fetch('/saveImage', {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         img: document.getElementById("canvas").toDataURL("image/png").replace("image/png", "image/octet-stream"),
+    //         file_path: document.getElementById('file_path').getAttribute("href")
+    //     })
+    // }).then(response => response.text())
+    //     .then(
+    //         data => {
+    //             console.log(data)
+    //         }
+    //     )
 }
 
 function renameFile() {
@@ -64,11 +65,14 @@ function renameFile() {
 }
 
 let globalImgPath = ""
-function drawImage(imgPath) {
-    globalImgPath = imgPath
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext('2d');
 
+function drawImage(imgPath, filter, canvasId) {
+    if (!globalImgPath) {
+        globalImgPath = imgPath;
+    }
+
+    let canvas = document.getElementById(canvasId);
+    let ctx = canvas.getContext('2d');
     canvas.width = canvas.clientWidth
     canvas.height = canvas.clientHeight
 
@@ -96,134 +100,70 @@ function drawImage(imgPath) {
         drawStartY = (canvas.height - drawHeight) / 2;
 
         ctx.drawImage(img, 0, 0, img.width, img.height, drawStartX, drawStartY, drawWidth, drawHeight);
-    }
-}
 
-function filter(filter, canvasId) {
-    console.log("filter");
-    console.log("filter: ", filter);
-    console.log("canvasId: ", canvasId);
-    let imgPath = globalImgPath
-    //drawImage(imgPath)
+        switch (filter) {
+            case "grayscale":
+                let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+                let pixels = imgData.data;
+                for (let i = 0; i < pixels.length; i += 4) {
 
-    let canvas
-    if (canvasId != undefined) {
-        canvas = document.getElementById(canvasId);
-    } else {
-        canvas = document.getElementById('canvas');
-    }
-    let ctx = canvas.getContext('2d');
-    console.log("ctx: ", ctx);
+                    let lightness = parseInt((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
+                    pixels[i] = lightness;
+                    pixels[i + 1] = lightness;
+                    pixels[i + 2] = lightness;
+                }
+                ctx.putImageData(imgData, 0, 0);
+                break;
 
-    switch (filter) {
-        case "grayscale":
-            let imgData = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            let pixels = imgData.data;
-            for (let i = 0; i < pixels.length; i += 4) {
+            case "invert":
+                let imgData2 = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+                let pixels2 = imgData2.data;
+                for (let i = 0; i < pixels2.length; i += 4) {
 
-                let lightness = parseInt((pixels[i] + pixels[i + 1] + pixels[i + 2]) / 3);
+                    pixels2[i] = 255 - pixels2[i];
+                    pixels2[i + 1] = 255 - pixels2[i + 1];
+                    pixels2[i + 2] = 255 - pixels2[i + 2];
+                }
+                ctx.putImageData(imgData2, 0, 0);
+                break;
 
-                pixels[i] = lightness;
-                pixels[i + 1] = lightness;
-                pixels[i + 2] = lightness;
-            }
-            ctx.putImageData(imgData, 0, 0);
-            break;
+            case "sepia":
+                let imgData3 = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
+                let pixels3 = imgData3.data;
+                for (let i = 0; i < pixels3.length; i += 4) {
 
-        case "invert":
-            let imgData2 = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            let pixels2 = imgData2.data;
-            for (let i = 0; i < pixels2.length; i += 4) {
+                    let r = pixels3[i];
+                    let g = pixels3[i + 1];
+                    let b = pixels3[i + 2];
 
-                pixels2[i] = 255 - pixels2[i];
-                pixels2[i + 1] = 255 - pixels2[i + 1];
-                pixels2[i + 2] = 255 - pixels2[i + 2];
-            }
-            ctx.putImageData(imgData2, 0, 0);
-            break;
+                    pixels3[i] = (r * 0.393) + (g * 0.769) + (b * 0.189);
+                    pixels3[i + 1] = (r * 0.349) + (g * 0.686) + (b * 0.168);
+                    pixels3[i + 2] = (r * 0.272) + (g * 0.534) + (b * 0.131);
+                }
+                ctx.putImageData(imgData3, 0, 0);
+                break;
 
-        case "sepia":
-            let imgData3 = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height);
-            let pixels3 = imgData3.data;
-            for (let i = 0; i < pixels3.length; i += 4) {
-
-                let lightness = parseInt((pixels3[i] + pixels3[i + 1] + pixels3[i + 2]) / 3);
-
-                pixels3[i] = lightness + 100;
-                pixels3[i + 1] = lightness + 50;
-                pixels3[i + 2] = lightness;
-            }
-            ctx.putImageData(imgData3, 0, 0);
-            break;
+            case 'none':
+            default:
+                break
+        }
     }
 }
 
 function drawFilters() {
-    console.log("drawFilters");
-    let imgPath = globalImgPath
-    let canvas = document.getElementById('grayscale');
-    let ctx = canvas.getContext('2d');
-    canvas.width = canvas.clientWidth
-    canvas.height = canvas.clientHeight
+    drawImage(globalImgPath, "grayscale", "grayscale");
+    drawImage(globalImgPath, "invert", "invert");
+    drawImage(globalImgPath, "sepia", "sepia");
+    drawImage(globalImgPath, "none", "none");
+}
 
-    let img = new Image();
-    img.src = "https://dev.juliandworzycki.pl/showFile/" + imgPath;
-    img.onload = function () {
-        let drawStartX = 0;
-        let drawStartY = 0;
-        let drawWidth = img.width;
-        let drawHeight = img.height;
+function filter(filter) {
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (drawWidth > canvas.width) {
-            let oldWidth = img.width;
-            let oldHeight = img.height;
-            drawWidth = canvas.width;
-            drawHeight = (drawWidth * oldHeight) / oldWidth;
-        }
-        if (drawHeight > canvas.height) {
-            let oldWidth = img.width;
-            let oldHeight = img.height;
-            drawHeight = canvas.height;
-            drawWidth = (drawHeight * oldWidth) / oldHeight;
-        }
-        drawStartX = (canvas.width - drawWidth) / 2;
-        drawStartY = (canvas.height - drawHeight) / 2;
+    drawImage(globalImgPath, filter, "canvas");
+}
 
-        ctx.drawImage(img, 0, 0, img.width, img.height, drawStartX, drawStartY, drawWidth, drawHeight);
-
-        filter("grayscale", "grayscale")
-    }
-
-    canvas = document.getElementById('invert');
-    ctx = canvas.getContext('2d');
-    canvas.width = canvas.clientWidth
-    canvas.height = canvas.clientHeight
-
-    img = new Image();
-    img.src = "https://dev.juliandworzycki.pl/showFile/" + imgPath;
-    img.onload = function () {
-        let drawStartX = 0;
-        let drawStartY = 0;
-        let drawWidth = img.width;
-        let drawHeight = img.height;
-
-        if (drawWidth > canvas.width) {
-            let oldWidth = img.width;
-            let oldHeight = img.height;
-            drawWidth = canvas.width;
-            drawHeight = (drawWidth * oldHeight) / oldWidth;
-        }
-        if (drawHeight > canvas.height) {
-            let oldWidth = img.width;
-            let oldHeight = img.height;
-            drawHeight = canvas.height;
-            drawWidth = (drawHeight * oldWidth) / oldHeight;
-        }
-        drawStartX = (canvas.width - drawWidth) / 2;
-        drawStartY = (canvas.height - drawHeight) / 2;
-
-        ctx.drawImage(img, 0, 0, img.width, img.height, drawStartX, drawStartY, drawWidth, drawHeight);
-
-        filter("invert", "invert")
-    }
+function slideFilters() {
+    document.getElementById("filters").classList.toggle("hide");
 }
