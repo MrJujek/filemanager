@@ -419,6 +419,34 @@ app.post('/renameImage', function (req, res) {
     }
 });
 
+app.post('/saveImage', function (req, res) {
+    let filepath = (req.body.file_path).split("/").slice(2, (req.body.file_path).split("/").length).join("/")
+    let imgData = req.body.imgData
+
+    let base64Data = imgData.replace(/^data:image\/\w+;base64,/, "");
+    //console.log("base64Data: ", base64Data.slice(0, 100));
+
+    //fs.writeFileSync(path.join("/home/ubuntu/Desktop/filemanager/files", filepath), base64Data);
+
+    (async () => {
+        const buf = Buffer.from(base64Data, "base64");
+
+        await fs.writeFile(path.join("/home/ubuntu/Desktop/filemanager/files", filepath), buf, err => {
+            if (err) {
+                console.error(err);
+            }
+
+            res.end("Image saved")
+        });
+    })();
+
+    // console.log("filepath: ", filepath);
+    // console.log(path.join("/home/ubuntu/Desktop/filemanager/files", filepath));
+
+    //console.log("imgData: ", imgData);
+
+})
+
 app.post('/saveUserEditorSettings', function (req, res) {
     let cookie = JSON.parse(req.cookies["user"])
     let users = require("../data/users.json")

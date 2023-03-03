@@ -1,24 +1,26 @@
 function saveImage() {
     console.log('Saving image...');
-    console.log(document.getElementById("canvas").toDataURL("image/png").replace("image/png", "image/octet-stream"));
-    // fetch('/saveImage', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         img: document.getElementById("canvas").toDataURL("image/png").replace("image/png", "image/octet-stream"),
-    //         file_path: document.getElementById('file_path').getAttribute("href")
-    //     })
-    // }).then(response => response.text())
-    //     .then(
-    //         data => {
-    //             console.log(data)
-    //         }
-    //     )
+
+    let fileExtension = document.getElementById('file_path').getAttribute("href").split(".")[document.getElementById('file_path').getAttribute("href").split(".").length - 1];
+
+    fetch('/saveImage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            imgData: document.getElementById("canvas").toDataURL("image/" + fileExtension),
+            file_path: document.getElementById('file_path').getAttribute("href")
+        })
+    }).then(response => response.text())
+        .then(
+            data => {
+                console.log(data)
+            }
+        )
 }
 
-function renameFile() {
+function renameImage() {
     let element = document.createElement("div")
     element.id = "dialogrenamefile"
     element.innerText = "Input new file name:"
