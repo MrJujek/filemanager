@@ -53,6 +53,13 @@ interface ImgEditorData {
     imgPath: string
 }
 
+interface LoggedUserSettings {
+    login: string
+    password: string
+    editorColor: number
+    editorFont: number
+}
+
 let context: ContextInterface = {
     filePath: [],
     directories: [],
@@ -284,21 +291,33 @@ app.get('/textEditor/*', function (req, res) {
     if (!req.cookies.user) {
         res.redirect("/signin")
     } else {
+        let users = require("../data/users.json")
+
+        let loggedUserSettings: LoggedUserSettings = {
+            login: "",
+            password: "",
+            editorColor: 0,
+            editorFont: 0
+        }
+
+        for (let i = 0; i < users.users.length; i++) {
+            if (JSON.parse(req.cookies.user).login == users.users[i].login) {
+                console.log("user found");
+                console.log("user: ", users.users[i]);
+                loggedUserSettings = users.users[i]
+            }
+        }
+
         let url = decodeURI(req.url)
         let url_path = "./files/" + url.split("/").slice(2, url.split("/").length).join("/");
 
-        console.log("url: ", url.split(".")[url.split(".").length - 1]);
-
-
         let filePath = path.join(url_path);
-
-        let cookie = JSON.parse(req.cookies["user"])
 
         let textEditorData: TextEditorData = {
             filePath: [],
             text: "",
-            editorColor: cookie.editorColor,
-            editorFont: cookie.editorFont,
+            editorColor: loggedUserSettings.editorColor,
+            editorFont: loggedUserSettings.editorFont,
             run: false
         }
 

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: 200px;
-    margin: 5px;
+    margin: 5px 10px;
 
     .fontChangingButton {
         text-align: center;
@@ -47,7 +47,7 @@
     font-family: "Bungee", Arial;
     text-shadow: 1px 1px 1px #ffffff;
     width: 200px;
-    margin: 5px;
+    margin: 5px 10px;
 
     &:hover {
         color: #ffffff;

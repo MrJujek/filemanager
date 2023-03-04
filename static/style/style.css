@@ -8,7 +8,7 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 200px;
-  margin: 5px;
+  margin: 5px 10px;
 }
 
 .divForFontChangingButtons .fontChangingButton {
@@ -59,7 +59,7 @@
   font-family: "Bungee", Arial;
   text-shadow: 1px 1px 1px #ffffff;
   width: 200px;
-  margin: 5px;
+  margin: 5px 10px;
 }
 
 .runFile:hover,
@@ -481,7 +481,7 @@ label[for="editor"] {
 .saveImage,
 .showImage,
 .filtersButton {
-  margin: 10px;
+  margin: 5px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -664,7 +664,6 @@ label[for="editor"] {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  padding: 0px 5px;
 }
 
 .leftPanel span {
@@ -753,7 +752,7 @@ label[for="editor"] {
   font-size: 16px;
   text-shadow: 1px 1px 1px #ffffff;
   padding: 0px 5px;
-  margin: 5px;
+  margin: 5px 10px;
   width: 200px;
 }
 
@@ -808,7 +807,9 @@ label[for="editor"] {
 }
 
 .uploadFiles {
-  margin: 5px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 5px 10px;
   border: 3px dashed dimgray;
   background-color: #999999;
   border-radius: 5px;
@@ -825,13 +826,16 @@ label[for="editor"] {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  padding: 20px;
+  width: 200px;
 }
 
 .uploadFiles label {
-  padding-bottom: 20px;
   text-align: center;
   overflow-wrap: break-word;
+}
+
+.uploadFiles form {
+  padding: 20px 0px;
 }
 
 .rowInfo {
