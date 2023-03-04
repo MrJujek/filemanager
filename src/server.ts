@@ -401,7 +401,7 @@ app.post('/renameFile', function (req, res) {
     let newName = req.body.newName
 
     console.log("filepath: ", filepath);
-    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[1]
+    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[filepath.split("/")[filepath.split("/").length - 1].split(".").length - 1]
     console.log("newPath: ", newPath);
 
 
@@ -422,7 +422,7 @@ app.post('/renameImage', function (req, res) {
     let newName = req.body.newName
 
     console.log("filepath: ", filepath);
-    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[1]
+    let newPath = filepath.slice(0, filepath.length - filepath.split("/")[filepath.split("/").length - 1].length) + newName + "." + filepath.split("/")[filepath.split("/").length - 1].split(".")[filepath.split("/")[filepath.split("/").length - 1].split(".").length - 1]
     console.log("newPath: ", newPath);
 
 

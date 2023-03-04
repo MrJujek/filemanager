@@ -56,9 +56,10 @@
         </div>
         <label for="editor">Editor:</label>
         <div class="divForTextarea">
-            <textarea name="linesNumbers" id="linesNumbers" class="linesNumbers" readonly spellcheck="false" wrap="hard"
+            <textarea name="linesNumbers" id="linesNumbers" class="linesNumbers" readonly spellcheck="false"
                 autocapitalize="off" autocorrect="off"></textarea>
-            <textarea name="editor" id="editor" class="editor" rows="10">{{text}}</textarea>
+            <textarea name="editor" id="editor" class="editor" spellcheck="false" autocapitalize="off"
+                autocorrect="off">{{text}}</textarea>
         </div>
         <script src="/scripts/texteditor.js"></script>
         <div class="saveFile" onclick="saveFile()">

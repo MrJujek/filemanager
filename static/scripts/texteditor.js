@@ -161,7 +161,6 @@ function renameFile() {
 }
 
 function setColorAndFont(editorColor, editorFont) {
-    console.log(editorColor, editorFont);
     document.getElementById('editor').style.backgroundColor = colors[editorColor][0];
     document.getElementById('editor').style.color = colors[editorColor][2];
     document.getElementById('linesNumbers').style.backgroundColor = colors[editorColor][0];
