@@ -30,6 +30,7 @@ interface ContextInterface {
     filePath: PathLinks[]
     directories: FileToPushInterface[]
     files: FileToPushInterface[]
+    userName: string
 }
 interface FileToPushInterface {
     name: string
@@ -45,12 +46,14 @@ interface TextEditorData {
     text: string
     editorColor: number
     editorFont: number
-    run: boolean
+    run: boolean,
+    userName: string
 }
 
 interface ImgEditorData {
     filePath: PathLinks[]
-    imgPath: string
+    imgPath: string,
+    userName: string
 }
 
 interface LoggedUserSettings {
@@ -63,7 +66,8 @@ interface LoggedUserSettings {
 let context: ContextInterface = {
     filePath: [],
     directories: [],
-    files: []
+    files: [],
+    userName: ""
 }
 
 let allFiles: string[]
@@ -93,7 +97,8 @@ app.get("/files/*", async function (req, res) {
             context = {
                 filePath: [],
                 directories: [],
-                files: []
+                files: [],
+                userName: JSON.parse(req.cookies.user).login
             }
 
             for (let i = 0; i < folderPath.split("/").length; i++) {
@@ -318,7 +323,8 @@ app.get('/textEditor/*', function (req, res) {
             text: "",
             editorColor: loggedUserSettings.editorColor,
             editorFont: loggedUserSettings.editorFont,
-            run: false
+            run: false,
+            userName: JSON.parse(req.cookies.user).login
         }
 
         for (let i = 0; i < filePath.split("/").length; i++) {
@@ -358,7 +364,8 @@ app.get('/imgEditor/*', function (req, res) {
 
         let imgEditorData: ImgEditorData = {
             filePath: [],
-            imgPath: url.split("/").slice(2, url.split("/").length).join("/")
+            imgPath: url.split("/").slice(2, url.split("/").length).join("/"),
+            userName: JSON.parse(req.cookies.user).login
         }
 
         for (let i = 0; i < filePath.split("/").length; i++) {
